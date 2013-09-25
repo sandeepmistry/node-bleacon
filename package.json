@@ -1,0 +1,21 @@
+{
+  "name": "bleacon",
+  "version": "0.0.0",
+  "description": "A node.js lib to interact with iBeacons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandeepmistry/node-bleacon.git"
+  },
+  "keywords": [
+    "ibeacon"
+  ],
+  "author": "Sandeep Mistry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sandeepmistry/node-bleacon/issues"
+  }
+}
