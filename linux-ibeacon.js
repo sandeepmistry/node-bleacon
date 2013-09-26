@@ -1,8 +1,11 @@
+// Run with sudo ...
+// Use with on iOS: http://adcdownload.apple.com/wwdc_2013/wwdc_2013_sample_code/ios_airlocate.zip
+
 var exec = require('child_process').exec; 
 
-var uuid = new Buffer('585cde931b0142cc9a1325009bedc65e', 'hex');
-var major = 0x8888;
-var minor = 0x9999;
+var uuid = new Buffer('E2C56DB5DFFB48D2B060D0F5A71096E0', 'hex');
+var major = 0;
+var minor = 0;
 var measuredPower = -59;
 
 // EIR Length (1) + Type (1) + header (6) + uuid (16) + major (2) + minor (2) + measure (1)
@@ -32,6 +35,6 @@ eirData.writeUInt16LE(minor, 24);
 // ibeacon measure power
 eirData.writeInt8(measuredPower, 26);
 
-exec('hcitool hci0 leadv');
-exec('hcitool -i hci0 cmd 0x08 0x0008 ' + eirLength.toString(16) + eirData.toString('hex').match(/.{1,2}/g).join(' '));
+exec('hciconfig hci0 leadv');
+exec('hcitool -i hci0 cmd 0x08 0x0008 ' + eirLength.toString(16) + ' ' + eirData.toString('hex').match(/.{1,2}/g).join(' '));
 exec('hcitool -i hci0 cmd 0x08 0x000a');
