@@ -8,7 +8,7 @@ var major = 0;
 var minor = 0;
 var measuredPower = -59;
 
-// EIR Length (1) + Type (1) + header (6) + uuid (16) + major (2) + minor (2) + measure (1)
+// EIR Length (1) + Type (1) + header (4) + uuid (16) + major (2) + minor (2) + measure (1)
 var eirLength = (1 + 1) + (4 + 16 + 2 + 2 + 1);
 var eirData = new Buffer(eirLength);
 
