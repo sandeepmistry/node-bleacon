@@ -19,7 +19,8 @@
     "url": "https://github.com/sandeepmistry/node-bleacon/issues"
   },
   "dependencies": {
-    "noble": "~0.2.0"
+    "noble": "~0.2.0",
+    "debug": "~0.7.2"
   },
   "devDependencies": {
     "jshint": "~2.1.11"
