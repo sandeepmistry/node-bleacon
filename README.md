@@ -76,13 +76,14 @@ __Note:__ not official, determined using [noble](https://github.com/sandeepmistr
 
 Following data is in the manufacturer data section of the advertisment data
 
-    <header (4 bytes)> <uuid (16 bytes)> <major (2 bytes)> <minor (2 bytes)> <RSSI @ 1m>
+     <company identifier (2 bytes)> <header (2 bytes)> <uuid (16 bytes)> <major (2 bytes)> <minor (2 bytes)> <RSSI @ 1m>
 
 Example:
 
-    4C000215 585CDE931B0142CC9A1325009BEDC65E 0000 0000 C5
+    4C00 0215 585CDE931B0142CC9A1325009BEDC65E 0000 0000 C5
 
- * header (fixed): ```4C000215```
+ * Apple [Company Identifier](https://www.bluetooth.org/en-us/specification/assigned-numbers/company-identifiers) (Little Endian)
+ * iBeacon Header (Little Endian)
  * uuid: ```585CDE931B0142CC9A1325009BEDC65E```
  * major: ```0000```
  * minor: ```0000```

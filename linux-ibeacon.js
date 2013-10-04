@@ -15,11 +15,11 @@ var eirData = new Buffer(eirLength);
 eirData[0] = eirLength - 1; // EIR length
 eirData[1] = 0xff; // EIR Type manufacturer data
 
-// ibeacon header
-eirData[2] = 0x4c;
-eirData[3] = 0x00;
-eirData[4] = 0x02;
-eirData[5] = 0x15;
+// Apple company idenifier
+eirData.writeInt16LE(0x004c, 2);
+
+// header
+eirData.writeInt16LE(0x1502, 4);
 
 // ibeacon uuid
 for (var i = 0; i < uuid.length; i++) {
