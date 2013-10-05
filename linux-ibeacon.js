@@ -8,8 +8,8 @@ var major = 0;
 var minor = 0;
 var measuredPower = -59;
 
-// EIR Length (1) + Type (1) + header (4) + uuid (16) + major (2) + minor (2) + measure (1)
-var eirLength = (1 + 1) + (4 + 16 + 2 + 2 + 1);
+// EIR Length (1) + Type (1) + company identifier (2) + data type (1) + data length (1) + uuid (16) + major (2) + minor (2) + measure (1)
+var eirLength = (1 + 1) + (2 + 1 + 1 + 16 + 2 + 2 + 1);
 var eirData = new Buffer(eirLength);
 
 eirData[0] = eirLength - 1; // EIR length
@@ -18,8 +18,11 @@ eirData[1] = 0xff; // EIR Type manufacturer data
 // Apple company idenifier
 eirData.writeInt16LE(0x004c, 2);
 
-// header
-eirData.writeInt16LE(0x1502, 4);
+// data type 
+eirData[4] = 0x02;
+
+// data length
+eirData[5] = 0x15;
 
 // ibeacon uuid
 for (var i = 0; i < uuid.length; i++) {
