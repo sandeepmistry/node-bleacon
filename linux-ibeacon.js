@@ -39,5 +39,9 @@ eirData.writeUInt16LE(minor, 24);
 eirData.writeInt8(measuredPower, 26);
 
 exec('hciconfig hci0 leadv');
+// for the command descriptions, see BT Core Specification, Vol. 2, section 7.8
+// specifically, 7.8.7 for "LE Set Advertising Data command" below...
 exec('hcitool -i hci0 cmd 0x08 0x0008 ' + eirLength.toString(16) + ' ' + eirData.toString('hex').match(/.{1,2}/g).join(' '));
-exec('hcitool -i hci0 cmd 0x08 0x000a');
+// ...and section 7.8.9 for LE Set Advertise Enable Command (equivalent of
+// hciconfig hci0 leadv command)
+exec('hcitool -i hci0 cmd 0x08 0x000a 0x01');
