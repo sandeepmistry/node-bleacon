@@ -1,7 +1,7 @@
 {
   "name": "bleacon",
-  "version": "0.0.2",
-  "description": "A node.js lib to interact with iBeacons",
+  "version": "0.1.0",
+  "description": "A node.js library for creating and discovering iBeacons",
   "main": "index.js",
   "scripts": {
     "test": "jshint *.js lib/*.js"
@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "noble": "~0.2.0",
-    "debug": "~0.7.2"
+    "debug": "~0.7.2",
+    "bleno": "0.0.1"
   },
   "devDependencies": {
     "jshint": "~2.1.11"

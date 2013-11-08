@@ -1,7 +1,7 @@
 node-bleacon
 ============
 
-A node.js lib to interact with iBeacons
+A node.js library for creating and discovering iBeacons
 
 Install
 -------
@@ -13,9 +13,26 @@ Usage
 
     var Bleacon = require('bleacon');
 
+__Start advertising__
+
+"Create" an iBeacon
+
+    var uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
+    var major = 0; // 0 - 65535
+    var minor = 0; // 0 - 65535
+    var measuredPower = -59; // -128 - 127 (measured RSSI at 1 meter)
+
+    Bleacon.startAdvertising(uuid, major, minor, measuredPower);
+
+__Stop advertising__
+
+Stop your iBeacon
+
+    Bleacon.stopAdvertising();
+
 __Start scanning__
 
-    var uuid = 'E2C56DB5DFFB48D2B060D0F5A71096E0';
+    var uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
     var major = 0; // 0 - 65535
     var minor = 0; // 0 - 65535
 
@@ -58,16 +75,7 @@ __Events__
  * proximity
    * current proximity ('unknown', 'immediate', 'near', or 'far')
 
-Experimental
-------------
 
-More support will come when [noble](https://github.com/sandeepmistry/noble) supports peripheral mode
-
-__Soft iBeacon__
-
-Linux
-
-    sudo node linux-bleacon.js
 
 iBeacon Advertisement format
 ----------------------------
