@@ -4,7 +4,7 @@
   "description": "A node.js library for creating and discovering iBeacons",
   "main": "index.js",
   "scripts": {
-    "test": "jshint *.js lib/*.js"
+    "test": "jshint *.js lib/*.js estimote/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "bleno": "~0.0.2"
   },
   "devDependencies": {
-    "jshint": "~2.1.11"
+    "jshint": "~2.1.11",
+    "async": "~0.2.9"
   }
 }
