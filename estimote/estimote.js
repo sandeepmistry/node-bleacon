@@ -7,8 +7,8 @@ var noble = require('noble');
 
 var DEVICE_NAME_UUID                = '2a00';
 
-var MINOR_UUID                      = 'b9403001f5f8466eaff925556b57fe6d';
-var MAJOR_UUID                      = 'b9403002f5f8466eaff925556b57fe6d';
+var MAJOR_UUID                      = 'b9403001f5f8466eaff925556b57fe6d';
+var MINOR_UUID                      = 'b9403002f5f8466eaff925556b57fe6d';
 var UUID_1_UUID                     = 'b9403003f5f8466eaff925556b57fe6d';
 var UUID_2_UUID                     = 'b9403004f5f8466eaff925556b57fe6d';
 var SIGNAL_STRENGTH_UUID            = 'b9403011f5f8466eaff925556b57fe6d';
@@ -42,8 +42,8 @@ var Estimote = function(peripheral) {
   this.address = serviceData.slice(2, 8).toString('hex').match(/.{1,2}/g).reverse().join(':');
 
   this.measuredPower = serviceData.readInt8(8);
-  this.minor = serviceData.readUInt16LE(9);
-  this.major = serviceData.readUInt16LE(11);
+  this.major = serviceData.readUInt16LE(9);
+  this.minor = serviceData.readUInt16LE(11);
 
   this._peripheral.on('disconnect', this.onDisconnect.bind(this));
 };
@@ -52,6 +52,7 @@ util.inherits(Estimote, events.EventEmitter);
 
 Estimote.is = function(peripheral) {
   return (peripheral.advertisement.localName === 'estimote' && 
+            peripheral.advertisement.manufacturerData !== undefined &&
             peripheral.advertisement.serviceData !== undefined);
 };
 
@@ -155,16 +156,60 @@ Estimote.prototype.readStringCharacteristic = function(uuid, callback) {
   });
 };
 
+Estimote.prototype.writeDataCharacteristic = function(uuid, data, callback) {
+  this._characteristics[uuid].write(data, false, callback);
+};
+
+Estimote.prototype.writeInt8Characteristic = function(uuid, value, callback) {
+  var data = new Buffer(1);
+
+  data.writeInt8(value, 0);
+
+  this.writeDataCharacteristic(uuid, data, callback);
+};
+
+Estimote.prototype.writeUInt8Characteristic = function(uuid, value, callback) {
+  var data = new Buffer(1);
+
+  data.writeUInt8(value, 0);
+
+  this.writeDataCharacteristic(uuid, data, callback);
+};
+
+Estimote.prototype.writeUInt16Characteristic = function(uuid, value, callback) {
+  var data = new Buffer(2);
+
+  data.writeUInt16LE(value, 0);
+
+  this.writeDataCharacteristic(uuid, data, callback);
+};
+
+Estimote.prototype.writeStringCharacteristic = function(uuid, value, callback) {
+  this.writeDataCharacteristic(uuid, new Buffer(value), callback);
+};
+
 Estimote.prototype.readDeviceName = function(callback) {
   this.readStringCharacteristic(DEVICE_NAME_UUID, callback);
+};
+
+Estimote.prototype.writeDeviceName = function(deviceName, callback) {
+  this.writeStringCharacteristic(DEVICE_NAME_UUID, deviceName, callback);
+};
+
+Estimote.prototype.readMajor = function(callback) {
+  this.readUInt16Characteristic(MAJOR_UUID, callback);
+};
+
+Estimote.prototype.writeMajor = function(major, callback) {
+  this.writeUInt16Characteristic(MAJOR_UUID, major, callback);
 };
 
 Estimote.prototype.readMinor = function(callback) {
   this.readUInt16Characteristic(MINOR_UUID, callback);
 };
 
-Estimote.prototype.readMajor = function(callback) {
-  this.readUInt16Characteristic(MAJOR_UUID, callback);
+Estimote.prototype.writeMinor = function(minor, callback) {
+  this.writeUInt16Characteristic(MINOR_UUID, minor, callback);
 };
 
 Estimote.prototype.readUuid1 = function(callback) {
@@ -173,10 +218,18 @@ Estimote.prototype.readUuid1 = function(callback) {
   });
 };
 
+Estimote.prototype.writeUuid1 = function(uuid1, callback) {
+  this.writeDataCharacteristic(UUID_1_UUID, new Buffer(uuid1, 'hex'), callback);
+};
+
 Estimote.prototype.readUuid2 = function(callback) {
  this.readDataCharacteristic(UUID_2_UUID, function(data) {
     callback(data.toString('hex'));
   });
+};
+
+Estimote.prototype.writeUuid2 = function(uuid2, callback) {
+  this.writeDataCharacteristic(UUID_2_UUID, new Buffer(uuid2, 'hex'), callback);
 };
 
 Estimote.prototype.readSignalStrength = function(callback) {
@@ -193,6 +246,12 @@ Estimote.prototype.readAdvertisementInterval = function(callback) {
 
     callback(advertisementInterval);
   }.bind(this));
+};
+
+Estimote.prototype.writeAdvertisementInterval = function(advertisementInterval, callback) {
+  var rawAdvertisementInterval = (advertisementInterval / 5) * 8;
+
+  this.writeUInt16Characteristic(ADVERTISEMENT_INTERVAL_UUID, rawAdvertisementInterval, callback);
 };
 
 Estimote.prototype.readService2_7 = function(callback) {
@@ -222,14 +281,35 @@ Estimote.prototype.readPowerLevel = function(callback) {
   }.bind(this));
 };
 
+Estimote.prototype.writePowerLevel = function(powerLevel, callback) {
+  if (powerLevel < 1) {
+    powerLevel = 1;
+  } else if (powerLevel > 8) {
+    powerLevel = 8;
+  }
+
+  var POWER_LEVEL_MAPPER = {
+    1: -30,
+    2: -20,
+    3: -16,
+    4: -12,
+    5:  -8,
+    6:  -4,
+    7:   0,
+    8:   4
+  };
+
+  var rawLevel = POWER_LEVEL_MAPPER[powerLevel];
+
+  this.writeInt8Characteristic(POWER_LEVEL_UUID, rawLevel, callback);
+};
+
 Estimote.prototype.readService2_9 = function(callback) {
   this.readDataCharacteristic(SERVICE_2_09_UUID, callback);
 };
 
 Estimote.prototype.readService2_10 = function(callback) {
-  this.readDataCharacteristic(SERVICE_2_10_UUID, function(data) {
-
-  });
+  this.readDataCharacteristic(SERVICE_2_10_UUID, callback);
 };
 
 Estimote.prototype.readBatteryLevel = function(callback) {

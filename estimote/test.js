@@ -24,15 +24,8 @@ Estimote.discover(function(estimote) {
       estimote.readDeviceName(function(deviceName) {
         console.log('\tdevice name = ' + deviceName);
 
-        callback();
-      });
-    },
-    function(callback) {
-      console.log('readMinor');
-      estimote.readMinor(function(minor) {
-        console.log('\tminor = ' + minor + ' (0x' + minor.toString(16) + ')');
-
-        callback();
+        console.log('writeDeviceName');
+        estimote.writeDeviceName(deviceName, callback);
       });
     },
     function(callback) {
@@ -40,7 +33,17 @@ Estimote.discover(function(estimote) {
       estimote.readMajor(function(major) {
         console.log('\tmajor = ' + major + ' (0x' + major.toString(16) + ')');
 
-        callback();
+        console.log('writeMajor');
+        estimote.writeMajor(major, callback);
+      });
+    },
+    function(callback) {
+      console.log('readMinor');
+      estimote.readMinor(function(minor) {
+        console.log('\tminor = ' + minor + ' (0x' + minor.toString(16) + ')');
+
+        console.log('writeMinor');
+        estimote.writeMinor(minor, callback);
       });
     },
     function(callback) {
@@ -48,7 +51,8 @@ Estimote.discover(function(estimote) {
       estimote.readUuid1(function(uuid1) {
         console.log('\tuuid 1 = ' + uuid1);
 
-        callback();
+        console.log('writeUuid1');
+        estimote.writeUuid1(uuid1, callback);
       });
     },
     function(callback) {
@@ -56,7 +60,8 @@ Estimote.discover(function(estimote) {
       estimote.readUuid2(function(uuid2) {
         console.log('\tuuid 2 = ' + uuid2);
 
-        callback();
+        console.log('writeUuid2');
+        estimote.writeUuid2(uuid2, callback);
       });
     },
     function(callback) {
@@ -72,7 +77,8 @@ Estimote.discover(function(estimote) {
       estimote.readAdvertisementInterval(function(advertisementInterval) {
         console.log('\tadvertisement interval = ' + advertisementInterval + ' ms');
 
-        callback();
+        console.log('writeAdvertisementInterval');
+        estimote.writeAdvertisementInterval(advertisementInterval, callback);
       });
     },
     // function(callback) {
@@ -88,7 +94,8 @@ Estimote.discover(function(estimote) {
       estimote.readPowerLevel(function(powerLevel) {
         console.log('\tpower level ' + powerLevel);
 
-        callback();
+        console.log('writePowerLevel');
+        estimote.writePowerLevel(powerLevel, callback);
       });
     },
     // function(callback) {

@@ -1,26 +1,26 @@
 Advertisement
 
 - name: estimote
-- service data 0x180a <BT address (6 bytes)> <measured power (1 byte)> <minor (2 bytes)> <major (2 bytes)>
+- service data 0x180a <BT address (6 bytes)> <measured power (1 byte)> <major (2 bytes)> <minor (2 bytes)>
 - manufacturer data
 
 
 1800
-  2a00 read, write      Device Name
-  2a01 read           Appearance
+  2a00 read, write  Device Name
+  2a01 read         Appearance
   2a04 read         Peripheral Preferred Connection Parameters
 
 1801
   2a05 indicate
 
-b9401000f5f8466eaff925556b57fe6d (ota)
+b9401000f5f8466eaff925556b57fe6d (ota ???)
   b9401001f5f8466eaff925556b57fe6d write
   b9401002f5f8466eaff925556b57fe6d notify
   b9401003f5f8466eaff925556b57fe6d writeWithoutResponse
 
 b9403000f5f8466eaff925556b57fe6d (estimote)
-  b9403001f5f8466eaff925556b57fe6d read, write        Minor
-  b9403002f5f8466eaff925556b57fe6d read, write        Major
+  b9403001f5f8466eaff925556b57fe6d read, write        Major
+  b9403002f5f8466eaff925556b57fe6d read, write        Minor
   b9403003f5f8466eaff925556b57fe6d read, write        UUID (b9407f30f5f8466eaff925556b57fe6d)
   b9403004f5f8466eaff925556b57fe6d read, write        UUID (b9407f30f5f8466eaff925556b57fe6d)
   b9403011f5f8466eaff925556b57fe6d read, write        Signal String (f4 = -12 dBm)
@@ -31,7 +31,7 @@ b9403000f5f8466eaff925556b57fe6d (estimote)
   b9403051f5f8466eaff925556b57fe6d read, write        ??? (00000000)
   b9403041f5f8466eaff925556b57fe6d read, write        Battery Level
 
-b9402000f5f8466eaff925556b57fe6d (auth)
+b9402000f5f8466eaff925556b57fe6d (auth ???)
   b9402001f5f8466eaff925556b57fe6d read, write        ??? (b3ab2f92 | 53fa8530)
   b9402002f5f8466eaff925556b57fe6d read, write        ??? (c217a7b44eb335b184a81e45a8b52033 | 6dd7c5f9a9cc1cbce364855b7de63903)
 
