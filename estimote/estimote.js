@@ -1,6 +1,8 @@
 var events = require('events');
+var crypto = require('crypto');
 var util = require('util');
 
+var bignum = require('bignum');
 var debug = require('debug')('estimote');
 
 var noble = require('noble');
@@ -19,8 +21,8 @@ var SERVICE_2_09_UUID               = 'b9403032f5f8466eaff925556b57fe6d';
 var SERVICE_2_10_UUID               = 'b9403051f5f8466eaff925556b57fe6d';
 var BATTERY_LEVEL_UUID              = 'b9403041f5f8466eaff925556b57fe6d';
 
-var SERVICE_3_01_UUID               = 'b9402001f5f8466eaff925556b57fe6d';
-var SERVICE_3_02_UUID               = 'b9402002f5f8466eaff925556b57fe6d';
+var AUTH_SERVICE_1_UUID             = 'b9402001f5f8466eaff925556b57fe6d';
+var AUTH_SERVICE_2_UUID             = 'b9402002f5f8466eaff925556b57fe6d';
 
 var FIRMWARE_VERSION_UUID           = 'b9404001f5f8466eaff925556b57fe6d';
 var HARDWARE_VERSION_UUID           = 'b9404002f5f8466eaff925556b57fe6d';
@@ -31,15 +33,12 @@ var Estimote = function(peripheral) {
   this._characteristics = {};
 
   this.uuid = peripheral.uuid;
-
-  var manufacturerData = peripheral.advertisement.manufacturerData;
-  if (manufacturerData) {
-    this.manufacturerData = manufacturerData.toString('hex');
-  }
+  this.manufacturerData = peripheral.advertisement.manufacturerData.toString('hex');
 
   var serviceData = peripheral.advertisement.serviceData;
 
   this.address = serviceData.slice(2, 8).toString('hex').match(/.{1,2}/g).reverse().join(':');
+  this.addressData = new Buffer(this.address.split(':').join(''), 'hex');
 
   this.measuredPower = serviceData.readInt8(8);
   this.major = serviceData.readUInt16LE(9);
@@ -150,6 +149,12 @@ Estimote.prototype.readUInt16Characteristic = function(uuid, callback) {
   });
 };
 
+Estimote.prototype.readUInt32Characteristic = function(uuid, callback) {
+  this.readDataCharacteristic(uuid, function(data) {
+    callback(data.readUInt32LE(0));
+  });
+};
+
 Estimote.prototype.readStringCharacteristic = function(uuid, callback) {
   this.readDataCharacteristic(uuid, function(data) {
     callback(data.toString());
@@ -184,8 +189,90 @@ Estimote.prototype.writeUInt16Characteristic = function(uuid, value, callback) {
   this.writeDataCharacteristic(uuid, data, callback);
 };
 
+Estimote.prototype.writeUInt32Characteristic = function(uuid, value, callback) {
+  var data = new Buffer(4);
+
+  data.writeUInt32LE(value, 0);
+
+  this.writeDataCharacteristic(uuid, data, callback);
+};
+
 Estimote.prototype.writeStringCharacteristic = function(uuid, value, callback) {
   this.writeDataCharacteristic(uuid, new Buffer(value), callback);
+};
+
+Estimote.prototype.pair = function(callback) {
+  var base = 5;
+  var exp = Math.round(Math.random() * 0xffffffff);
+  var mod = 0xfffffffb;
+
+  var sec = bignum(base).powm(exp, mod);
+
+  this.writeAuthService1(sec, function() {
+    this.readAuthService1(function(authService1Value) {
+      sec = bignum(authService1Value).powm(exp, mod);
+
+      var authService2Data = new Buffer(16);
+
+      // fill in authService2Data with address
+      authService2Data[0] = this.addressData[5];
+      authService2Data[1] = this.addressData[4];
+      authService2Data[2] = this.addressData[3];
+      authService2Data[3] = this.addressData[2];
+      authService2Data[4] = this.addressData[1];
+      authService2Data[5] = this.addressData[0];
+      authService2Data[6] = this.addressData[3];
+      authService2Data[7] = this.addressData[4];
+      authService2Data[8] = this.addressData[5];
+      authService2Data[9] = this.addressData[0];
+      authService2Data[10] = this.addressData[1];
+      authService2Data[11] = this.addressData[2];
+      authService2Data[12] = this.addressData[1];
+      authService2Data[13] = this.addressData[3];
+      authService2Data[14] = this.addressData[2];
+      authService2Data[15] = this.addressData[4];
+
+      // encrypt
+      var key = new Buffer('ff8af207013625c2d810097f20d3050f', 'hex');
+      var iv = new Buffer('00000000000000000000000000000000', 'hex');
+
+      var cipher = crypto.createCipheriv('aes128', key, iv);
+
+      cipher.setAutoPadding(false);
+      authService2Data = cipher.update(authService2Data);
+
+      // fill in key with sec
+      var secData = new Buffer(4);
+      secData.writeUInt32BE(sec, 0);
+
+      key[0] = secData[3];
+      key[1] = secData[2];
+      key[2] = secData[1];
+      key[3] = secData[0];
+      key[4] = secData[0];
+      key[5] = secData[1];
+      key[6] = secData[2];
+      key[7] = secData[3];
+      key[8] = secData[3];
+      key[9] = secData[0];
+      key[10] = secData[2];
+      key[11] = secData[1];
+      key[12] = secData[0];
+      key[13] = secData[3];
+      key[14] = secData[1];
+      key[15] = secData[2];
+
+      // decrypt
+      var decipher = crypto.createDecipheriv('aes128', key, iv);
+      
+      decipher.setAutoPadding(false);
+      authService2Data = decipher.update(authService2Data);
+
+      this.writeAuthService2(authService2Data, function() {
+        callback();
+      }.bind(this));
+    }.bind(this));
+  }.bind(this));
 };
 
 Estimote.prototype.readDeviceName = function(callback) {
@@ -316,12 +403,20 @@ Estimote.prototype.readBatteryLevel = function(callback) {
   this.readUInt8Characteristic(BATTERY_LEVEL_UUID, callback);
 };
 
-Estimote.prototype.readService3_1 = function(callback) {
-  this.readDataCharacteristic(SERVICE_3_01_UUID, callback);
+Estimote.prototype.readAuthService1 = function(callback) {
+  this.readUInt32Characteristic(AUTH_SERVICE_1_UUID, callback);
 };
 
-Estimote.prototype.readService3_2 = function(callback) {
-  this.readDataCharacteristic(SERVICE_3_02_UUID, callback);
+Estimote.prototype.writeAuthService1 = function(value, callback) {
+  this.writeUInt32Characteristic(AUTH_SERVICE_1_UUID, value, callback);
+};
+
+Estimote.prototype.readAuthService2 = function(callback) {
+  this.readDataCharacteristic(AUTH_SERVICE_2_UUID, callback);
+};
+
+Estimote.prototype.writeAuthService2 = function(data, callback) {
+  this.writeDataCharacteristic(AUTH_SERVICE_2_UUID, data, callback);
 };
 
 Estimote.prototype.readFirmwareVersion = function(callback) {

@@ -31,9 +31,9 @@ b9403000f5f8466eaff925556b57fe6d (estimote)
   b9403051f5f8466eaff925556b57fe6d read, write        ??? (00000000)
   b9403041f5f8466eaff925556b57fe6d read, write        Battery Level
 
-b9402000f5f8466eaff925556b57fe6d (auth ???)
-  b9402001f5f8466eaff925556b57fe6d read, write        ??? (b3ab2f92 | 53fa8530)
-  b9402002f5f8466eaff925556b57fe6d read, write        ??? (c217a7b44eb335b184a81e45a8b52033 | 6dd7c5f9a9cc1cbce364855b7de63903)
+b9402000f5f8466eaff925556b57fe6d (auth)
+  b9402001f5f8466eaff925556b57fe6d read, write        pair sec/base
+  b9402002f5f8466eaff925556b57fe6d read, write        pair code
 
 b9404000f5f8466eaff925556b57fe6d (soft)
   b9404001f5f8466eaff925556b57fe6d read               Firmware Version (A1.9)
@@ -41,5 +41,3 @@ b9404000f5f8466eaff925556b57fe6d (soft)
 
 
   http://assets.estimote.com/firmware/update.json
-  
-

@@ -20,6 +20,10 @@ Estimote.discover(function(estimote) {
       estimote.discoverServicesAndCharacteristics(callback);
     },
     function(callback) {
+      console.log('pair');
+      estimote.pair(callback);
+    },
+    function(callback) {
       console.log('readDeviceName');
       estimote.readDeviceName(function(deviceName) {
         console.log('\tdevice name = ' + deviceName);
@@ -122,22 +126,6 @@ Estimote.discover(function(estimote) {
         callback();
       });
     },
-    // function(callback) {
-    //   console.log('readService3_1');
-    //   estimote.readService3_1(function(data) {
-    //     console.log('\tservice 3 1 = ' + data.toString('hex'));
-
-    //     callback();
-    //   });
-    // },
-    // function(callback) {
-    //   console.log('readService3_2');
-    //   estimote.readService3_2(function(data) {
-    //     console.log('\tservice 3 2 = ' + data.toString('hex'));
-
-    //     callback();
-    //   });
-    // },
     function(callback) {
       console.log('readFirmwareVersion');
       estimote.readFirmwareVersion(function(firmwareVersion) {
