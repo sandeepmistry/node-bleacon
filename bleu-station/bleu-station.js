@@ -38,7 +38,7 @@ var BleuStation = function(peripheral) {
   this._characteristics = {};
 
   this.uuid = peripheral.uuid;
-  this.id = peripheral.advertisement.localName.slice(2);
+  this.name = peripheral.advertisement.localName;
 
   this._peripheral.on('disconnect', this.onDisconnect.bind(this));
 };
@@ -48,9 +48,8 @@ util.inherits(BleuStation, events.EventEmitter);
 BleuStation.is = function(peripheral) {
   var localName = peripheral.advertisement.localName;
 
-  return (localName && 
-          localName.length === 8 &&
-          localName.indexOf('TC') === 0);
+  return (localName && localName.length === 8 && localName.indexOf('TC') === 0) ||
+          (localName === undefined && peripheral.advertisement.manufacturerData);
 };
 
 BleuStation.discover = function(callback) {
@@ -84,7 +83,7 @@ BleuStation.discover = function(callback) {
 BleuStation.prototype.toString = function() {
   return JSON.stringify({
     uuid: this.uuid,
-    id: this.id
+    name: this.name
   });
 };
 
@@ -221,11 +220,9 @@ BleuStation.prototype.login = function(password, callback) {
       }
     }
 
-    clientCharacteristicConfigurationDescriptor.readValue(function(error, data) {
-      clientCharacteristicConfigurationDescriptor.writeValue(new Buffer('0000', 'hex'), function(error) {
-        this.writeAdminPassword(password, function(result) {
-          callback(result === 0);
-        }.bind(this));
+    clientCharacteristicConfigurationDescriptor.writeValue(new Buffer('0000', 'hex'), function(error) {
+      this.writeAdminPassword(password, function(result) {
+        callback(result === 0);
       }.bind(this));
     }.bind(this));
   }.bind(this));

@@ -2,6 +2,8 @@ var async = require('async');
 
 var BleuStation = require('./bleu-station.js');
 
+var READ_ONLY = false;
+
 BleuStation.discover(function(bleuStation) {
   async.series([
     function(callback) {
@@ -20,16 +22,20 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.discoverServicesAndCharacteristics(callback);
     },
     function(callback) {
-      console.log('login');
-      bleuStation.login('qwerty123', function(result) {
-        console.log('\tsuccess = ' + result);
+      if (READ_ONLY) {
+        callback();
+      } else {
+        console.log('login');
+        bleuStation.login('qwerty123', function(result) {
+          console.log('\tsuccess = ' + result);
 
-        if (result) {
-          callback();
-        } else {
-          bleuStation.disconnect();
-        }
-      });
+          if (result) {
+            callback();
+          } else {
+            bleuStation.disconnect();
+          }
+        });
+      }
     },
     function(callback) {
       console.log('readDeviceName');
@@ -72,9 +78,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readUuid(function(uuid) {
         console.log('\tuuid = ' + uuid);
 
-        console.log('writeUuid');
-        uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
-        bleuStation.writeUuid(uuid, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeUuid');
+          uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
+          bleuStation.writeUuid(uuid, callback);
+        }
       });
     },
     function(callback) {
@@ -82,9 +92,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readMajor(function(major) {
         console.log('\tmajor = ' + major + ' (0x' + major.toString(16) + ')');
 
-        console.log('writeMajor');
-        major = 1;
-        bleuStation.writeMajor(major, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeMajor');
+          major = 1;
+          bleuStation.writeMajor(major, callback);
+        }
       });
     },
     function(callback) {
@@ -92,9 +106,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readMinor(function(minor) {
         console.log('\tminor = ' + minor + ' (0x' + minor.toString(16) + ')');
 
-        console.log('writeMinor');
-        minor = 2;
-        bleuStation.writeMinor(minor, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeMinor');
+          minor = 2;
+          bleuStation.writeMinor(minor, callback);
+        }
       });
     },
     function(callback) {
@@ -102,9 +120,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readTxPower(function(txPower) {
         console.log('\tTX power = ' + txPower);
 
-        console.log('writeTxPower');
-        txPower = 100;
-        bleuStation.writeTxPower(txPower, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeTxPower');
+          txPower = 100;
+          bleuStation.writeTxPower(txPower, callback);
+        }
       });
     },
     function(callback) {
@@ -112,19 +134,27 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readMeasuredTxPower(function(measuredTxPower) {
         console.log('\tmeasured TX Power = ' + measuredTxPower);
 
-        console.log('writeMeasuredTxPower');
-        measuredTxPower = -60;
-        bleuStation.writeMeasuredTxPower(measuredTxPower, callback);
-      });
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeMeasuredTxPower');
+          measuredTxPower = -60;
+          bleuStation.writeMeasuredTxPower(measuredTxPower, callback);
+        }
+      });   
     },
     function(callback) {
       console.log('readAdminDeviceName');
       bleuStation.readAdminDeviceName(function(adminDeviceName) {
         console.log('\tadmin device name = ' + adminDeviceName);
 
-        console.log('writeAdminDeviceName');
-        adminDeviceName = '';
-        bleuStation.writeAdminDeviceName(adminDeviceName, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeAdminDeviceName');
+          adminDeviceName = '';
+          bleuStation.writeAdminDeviceName(adminDeviceName, callback);
+        }
       });
     },
     function(callback) {
@@ -132,9 +162,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readLatitude(function(latitude) {
         console.log('\tlatitude = ' + latitude);
 
-        console.log('writeLatitude');
-        latitude = 123.456789;
-        bleuStation.writeLatitude(latitude, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeLatitude');
+          latitude = 123.456789;
+          bleuStation.writeLatitude(latitude, callback);
+        }
       });
     },
     function(callback) {
@@ -142,9 +176,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readLongitude(function(longitude) {
         console.log('\tlongitude = ' + longitude);
 
-        console.log('writeLongitude');
-        longitude = 999.123456;
-        bleuStation.writeLongitude(longitude, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeLongitude');
+          longitude = 999.123456;
+          bleuStation.writeLongitude(longitude, callback);
+        }
       });
     },
     function(callback) {
@@ -160,9 +198,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readURL1(function(url1) {
         console.log('\turl 1 = ' + url1);
 
-        console.log('writeURL1');
-        url1 = 'https://twocanoes.com/bleu/config/default.plist';
-        bleuStation.writeURL1(url1, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeURL1');
+          url1 = 'https://twocanoes.com/bleu/config/default.plist';
+          bleuStation.writeURL1(url1, callback);
+        }
       });
     },
     function(callback) {
@@ -170,9 +212,13 @@ BleuStation.discover(function(bleuStation) {
       bleuStation.readURL2(function(url2) {
         console.log('\turl 2 = ' + url2);
 
-        console.log('writeURL2');
-        url2 = '';
-        bleuStation.writeURL2(url2, callback);
+        if (READ_ONLY) {
+          callback();
+        } else {
+          console.log('writeURL2');
+          url2 = '';
+          bleuStation.writeURL2(url2, callback);
+        }
       });
     },
     function(callback) {
