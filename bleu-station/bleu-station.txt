@@ -1,0 +1,46 @@
+00:07:80:71:E1:33
+
+peripheral discovered (fa926014578e4e4e9849d23259e6d457):
+    hello my local name is:
+        TC71E133
+    can I interest you in any of the following advertised services:
+        []
+    here is my manufacturer data:
+        "4c000215e2c56db5dffb48d2b060d0f5a71096e000010002c4"
+
+1800
+    2a00                                read                    TC71E133 (Device Name)
+    2a01                                read                    0x4142 (Appearance)
+
+180a
+    2a29                                read                    TwoCanoes (Manufacturer Name String)
+    2a24                                read                    iBeacon Demo (Model Number String)
+    2a27                                read                    0.0.0 (Hardware Revision)
+    2a26                                read                    0.0.0 (Firmware Revision)
+
+b0702880a295a8abf734031a98a512de
+
+    b0702881a295a8abf734031a98a512de    read                    e2c56db5dffb48d2b060d0f5a71096e0 (ibeacon uuid)
+    b0702882a295a8abf734031a98a512de    read                    0001 (ibeacon major)
+    b0702883a295a8abf734031a98a512de    read                    0002 (ibeacon minor)
+    b0702884a295a8abf734031a98a512de    read                    -60 (ibeacon measured tx power)
+
+
+2e88378c47ee48a8bc1374ec0d4ab559
+    c8f21a07078a42df86600946ffd109be    read, write             (TC admin uuid)
+    677ec16a743d42fcafe1d9f4a02a726f    read, write             (TC admin major)
+    7722712a07f4433f8e305a6dc26356ba    read, write             (TC admin minor)
+    8aa2414e8e614d9cae14508ee3192dee    read, write             25 - 100% (TC admin tx power)
+    0b4700c35c5346519601b7e1e06b1bbf    read, write             (TC admin tx cal)
+    980ac81e94fd43f48b9a260a65dd3adc    read, write             (TC admin device name)
+    12d8cca8b1cc4e48abf7767b5e0f3ff6    read, write, indicate   0 - success, 1 - changed, 2 - incorrect(TC admin password)
+
+0628d1540c244cf3a6f591446c38c1f4
+
+    fffc3dbb92d148f1aa5289a3d9517d79    read, write             123.456789 (TC Latitude)
+    9e5f3adf337f4acfb54d929da486f512    read, write             999.123456 (TC Longitude)
+    676e5ff15cd7484ab98f97f3c96e6361    read                    (TC Version Number)
+
+9a87fdf8108b4b6f840fba9927ec4d9e
+    98a5a965efd34d16924718fd88bb8a30    read, write             https://twocanoes.com/bleu/config/default.plist (TC URL 1)
+    3e8501d8aa3943368908b6e79d81a050    read, write             (TC URL 2)
