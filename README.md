@@ -1,7 +1,7 @@
 node-bleacon
 ============
 
-A node.js library for creating and discovering iBeacons
+A node.js library for creating, discovering, and configuring iBeacons
 
 Install
 -------
@@ -75,7 +75,11 @@ __Events__
  * proximity
    * current proximity ('unknown', 'immediate', 'near', or 'far')
 
+Configuring
+-----------
 
+ * [Bleu Station](https://github.com/sandeepmistry/node-bleacon/tree/master/bleu-station)
+ * [Estimote](https://github.com/sandeepmistry/node-bleacon/tree/master/estimote)
 
 iBeacon Advertisement format
 ----------------------------
