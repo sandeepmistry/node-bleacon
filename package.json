@@ -1,7 +1,7 @@
 {
   "name": "bleacon",
-  "version": "0.1.2",
-  "description": "A node.js library for creating and discovering iBeacons",
+  "version": "0.2.7",
+  "description": "A node.js library for creating, discovering, and configuring iBeacons",
   "main": "index.js",
   "scripts": {
     "test": "jshint *.js lib/*.js bleu-station/*.js estimote/*.js"
