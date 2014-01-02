@@ -91,4 +91,4 @@ Events
 
 __Disconnect__
 
-    bleuStation.on('disconnect', callback);
+    estimote.on('disconnect', callback);
