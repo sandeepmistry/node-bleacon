@@ -1,5 +1,5 @@
-Bleu Station
-============
+bleacon - Bleu Station
+======================
 
 Configure [Twocanoes](https://twocanoes.com) [Bleu Station](https://twocanoes.com/bleu) iBeacons.
 
