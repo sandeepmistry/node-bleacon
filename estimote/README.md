@@ -71,9 +71,6 @@ __iBeacon__
 
 __Other__
 
-    // Signal Strength (dBm)
-    estimote.readSignalStrength(callback(signalStrength));
-
     // Advertisement Interval
     estimote.readAdvertisementInterval(callback(advertisementInterval));
 
@@ -81,7 +78,7 @@ __Other__
     estimote.writeAdvertisementInterval(advertisementInterval, callback);
 
     // Power Level
-    estimote.readPowerLevel(callback(powerLevel));
+    estimote.readPowerLevel(callback(powerLevel, dBm));
 
     var powerLevel = 7; // 1 - 7
     estimote.writePowerLevel(powerLevel, callback);

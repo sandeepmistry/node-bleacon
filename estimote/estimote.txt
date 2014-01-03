@@ -23,10 +23,10 @@ b9403000f5f8466eaff925556b57fe6d (estimote)
   b9403002f5f8466eaff925556b57fe6d read, write        Minor
   b9403003f5f8466eaff925556b57fe6d read, write        UUID (b9407f30f5f8466eaff925556b57fe6d)
   b9403004f5f8466eaff925556b57fe6d read, write        UUID (b9407f30f5f8466eaff925556b57fe6d)
-  b9403011f5f8466eaff925556b57fe6d read, write        Signal String (f4 = -12 dBm)
+  b9403011f5f8466eaff925556b57fe6d read, write        Power Level (f4 = -12 dBm)
   b9403012f5f8466eaff925556b57fe6d read, write        AdvertisementInterval (4001 = 200 ms)
   b9403021f5f8466eaff925556b57fe6d read, write        ??? (0000)
-  b9403031f5f8466eaff925556b57fe6d read, indicate     Power Level (00)
+  b9403031f5f8466eaff925556b57fe6d read, indicate     ??? (00)
   b9403032f5f8466eaff925556b57fe6d read, write        ??? (00000000)
   b9403051f5f8466eaff925556b57fe6d read, write        ??? (00000000)
   b9403041f5f8466eaff925556b57fe6d read, write        Battery Level

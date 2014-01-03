@@ -69,11 +69,12 @@ Estimote.discover(function(estimote) {
       });
     },
     function(callback) {
-      console.log('readSignalStrength');
-      estimote.readSignalStrength(function(signalStrength) {
-        console.log('\tsignal strength = ' + signalStrength + ' dBm');
+      console.log('readPowerLevel');
+      estimote.readPowerLevel(function(powerLevel, dBm) {
+        console.log('\tpower level ' + powerLevel + ', ' + dBm + ' dBm');
 
-        callback();
+        console.log('writePowerLevel');
+        estimote.writePowerLevel(powerLevel, callback);
       });
     },
     function(callback) {
@@ -85,39 +86,38 @@ Estimote.discover(function(estimote) {
         estimote.writeAdvertisementInterval(advertisementInterval, callback);
       });
     },
-    // function(callback) {
-    //   console.log('readService2_7');
-    //   estimote.readService2_7(function(data) {
-    //     console.log('\tservice 2 7 = ' + data.toString('hex'));
-
-    //     callback();
-    //   });
-    // },
     function(callback) {
-      console.log('readPowerLevel');
-      estimote.readPowerLevel(function(powerLevel) {
-        console.log('\tpower level ' + powerLevel);
+      console.log('readService2_7');
+      estimote.readService2_7(function(data) {
+        console.log('\tservice 2 7 = ' + data.toString('hex'));
 
-        console.log('writePowerLevel');
-        estimote.writePowerLevel(powerLevel, callback);
+        callback();
       });
     },
-    // function(callback) {
-    //   console.log('readService2_9');
-    //   estimote.readService2_9(function(data) {
-    //     console.log('\tservice 2 9 = ' + data.toString('hex'));
+    function(callback) {
+      console.log('readService2_8');
+      estimote.readService2_8(function(data) {
+        console.log('\tservice 2 8 = ' + data.toString('hex'));
 
-    //     callback();
-    //   });
-    // },
-    // function(callback) {
-    //   console.log('readService2_10');
-    //   estimote.readService2_10(function(data) {
-    //     console.log('\tservice 2 10 = ' + data.toString('hex'));
+        callback();
+      });
+    },
+    function(callback) {
+      console.log('readService2_9');
+      estimote.readService2_9(function(data) {
+        console.log('\tservice 2 9 = ' + data.toString('hex'));
 
-    //     callback();
-    //   });
-    // },
+        callback();
+      });
+    },
+    function(callback) {
+      console.log('readService2_10');
+      estimote.readService2_10(function(data) {
+        console.log('\tservice 2 10 = ' + data.toString('hex'));
+
+        callback();
+      });
+    },
     function(callback) {
       console.log('readBatteryLevel');
       estimote.readBatteryLevel(function(batteryLevel) {
