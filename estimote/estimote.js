@@ -35,14 +35,14 @@ var Estimote = function(peripheral) {
   this.uuid = peripheral.uuid;
   this.manufacturerData = peripheral.advertisement.manufacturerData.toString('hex');
 
-  var serviceData = peripheral.advertisement.serviceData;
+  var serviceData = peripheral.advertisement.serviceData[0].data;
 
-  this.address = serviceData.slice(2, 8).toString('hex').match(/.{1,2}/g).reverse().join(':');
+  this.address = serviceData.slice(0, 6).toString('hex').match(/.{1,2}/g).reverse().join(':');
   this.addressData = new Buffer(this.address.split(':').join(''), 'hex');
 
-  this.measuredPower = serviceData.readInt8(8);
-  this.major = serviceData.readUInt16LE(9);
-  this.minor = serviceData.readUInt16LE(11);
+  this.measuredPower = serviceData.readInt8(6);
+  this.major = serviceData.readUInt16LE(7);
+  this.minor = serviceData.readUInt16LE(9);
 
   this._peripheral.on('disconnect', this.onDisconnect.bind(this));
 };
@@ -52,7 +52,9 @@ util.inherits(Estimote, events.EventEmitter);
 Estimote.is = function(peripheral) {
   return (peripheral.advertisement.localName === 'estimote' && 
             peripheral.advertisement.manufacturerData !== undefined &&
-            peripheral.advertisement.serviceData !== undefined);
+            peripheral.advertisement.serviceData !== undefined &&
+            peripheral.advertisement.serviceData.length &&
+            peripheral.advertisement.serviceData[0].uuid === '180a');
 };
 
 Estimote.discover = function(callback) {

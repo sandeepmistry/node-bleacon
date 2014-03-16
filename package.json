@@ -19,7 +19,7 @@
     "url": "https://github.com/sandeepmistry/node-bleacon/issues"
   },
   "dependencies": {
-    "noble": "~0.2.7",
+    "noble": "~0.3.0",
     "debug": "~0.7.2",
     "bleno": "~0.1.0",
     "bignum": "~0.6.2"
