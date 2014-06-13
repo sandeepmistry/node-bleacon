@@ -4,7 +4,7 @@
   "description": "A node.js library for creating, discovering, and configuring iBeacons",
   "main": "index.js",
   "scripts": {
-    "test": "jshint *.js lib/*.js bleu-station/*.js estimote/*.js"
+    "test": "jshint *.js lib/*.js bleu-station/*.js estimote/*.js radbeacon/*.js"
   },
   "repository": {
     "type": "git",

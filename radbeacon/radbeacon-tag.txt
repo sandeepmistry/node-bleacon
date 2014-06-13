@@ -1,0 +1,127 @@
+
+peripheral with UUID 3fd82b6487614561886122481bba4409 found
+  Local Name        = RadBeacon
+  Manufacturer Data = 4c0002152f234454cf6d4a0fadf2f4911ba9ffa600010120c5
+  Service Data      = 
+  Service UUIDs     = 
+
+services and characteristics:
+1800 (Generic Access)
+  2a00 (Device Name)
+    properties  read, write
+    value       526164426561636f6e | 'RadBeacon'
+  2a01 (Appearance)
+    properties  read
+    value       4103 | 'A'
+  2a04 (Peripheral Preferred Connection Parameters)
+    properties  read
+    value       9001200300009001 | ' '
+1801 (Generic Attribute)
+  2a05 (Service Changed)
+    properties  indicate
+248e4f81e46c4762bf3f84069c5c3f09
+  4f82
+    properties  write
+  4f83
+    properties  write
+  4f84
+    properties  write
+  4f85
+    properties  read, notify
+    value       0000000000000000000000000000000000000000 | ''
+
+
+4f83 onWriteRequest 87 (Name)
+4f85 onReadRequest
+
+4f83 onWriteRequest 90 (UUID)
+4f85 onReadRequest
+
+4f83 onWriteRequest 91 (Major)
+4f85 onReadRequest
+
+4f83 onWriteRequest 92 (Minor)
+4f85 onReadRequest
+
+4f83 onWriteRequest 93 (measured)
+4f85 onReadRequest
+
+4f83 onWriteRequest 84 (power level)
+4f85 onReadRequest
+
+4f83 onWriteRequest 82 (advertising interval)
+4f85 onReadRequest
+
+4f82 onWriteRequest 01020304 (pin)
+4f85 onReadRequest
+
+apply
+
+4f82 onWriteRequest 00000000
+4f85 onReadRequest
+
+set advertising interval
+
+4f83 onWriteRequest 02
+4f85 onReadRequest
+4f84 onWriteRequest 0064
+4f85 onReadRequest
+
+set power
+
+
+4f83 onWriteRequest 04
+4f85 onReadRequest
+4f84 onWriteRequest ec
+4f85 onReadRequest
+
+set measured power
+
+4f83 onWriteRequest 13
+4f85 onReadRequest
+4f84 onWriteRequest c5
+4f85 onReadRequest
+
+set minor
+
+4f83 onWriteRequest 12
+4f85 onReadRequest
+4f84 onWriteRequest 0014
+4f85 onReadRequest
+
+set major
+
+4f83 onWriteRequest 11
+4f85 onReadRequest
+4f84 onWriteRequest 000a
+4f85 onReadRequest
+
+set uuid
+
+4f83 onWriteRequest 10
+4f85 onReadRequest
+4f84 onWriteRequest b9407f30f5f8466eaff925556b57fe6d
+4f85 onReadRequest
+
+set name
+
+4f83 onWriteRequest 07
+4f85 onReadRequest
+4f84 onWriteRequest 7465737420
+4f85 onReadRequest
+
+set pin
+
+4f82 onWriteRequest 00000000
+4f85 onReadRequest
+4f83 onWriteRequest 01
+4f85 onReadRequest
+4f84 onWriteRequest 05050505
+4f85 onReadRequest
+
+lock
+
+4f82 onWriteRequest 00000000
+4f85 onReadRequest
+4f83 onWriteRequest 70
+4f85 onReadRequest
