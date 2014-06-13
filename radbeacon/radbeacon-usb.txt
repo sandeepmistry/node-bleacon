@@ -50,7 +50,7 @@ services and characteristics:
   aaa7 (TX Power)
     properties  read, write
     value       0f | ''
-  aaa8 (Interval)
+  aaa8 (Interval) - LE format
     properties  read, write
     value       a000 | ' '
   aaa9 (Result)
@@ -60,7 +60,7 @@ services and characteristics:
     properties  write
   aaab (Action)
     properties  write
-  aaac (PIN)
+  aaac (PIN) - ASCI format
     properties  write
 
 
