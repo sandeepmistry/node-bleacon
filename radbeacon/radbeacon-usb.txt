@@ -1,0 +1,77 @@
+peripheral with UUID ec9664677b9343c8a87d2a3cdb270175 found
+  Local Name        = RadBeacon USB
+  Manufacturer Data = 4c0002152f234454cf6d4a0fadf2f4911ba9ffa600010001be
+  Service Data      = 
+  Service UUIDs     = 
+
+services and characteristics:
+1800 (Generic Access)
+  2a00 (Device Name) (Device Name)
+    properties  read
+    value       526164426561636f6e20555342 | 'RadBeacon USB'
+  2a01 (Appearance) (Appearance)
+    properties  read
+    value       0000 | ''
+180a (Device Information)
+  2a29 (Manufacturer Name String) (Manufacturer Name)
+    properties  read
+    value       526164697573204e6574776f726b732c20496e632e | 'Radius Networks, Inc.'
+  2a24 (Model Number String) (Model Number)
+    properties  read
+    value       30303031 | '0001'
+  2a25 (Serial Number String) (Serial Number)
+    properties  read
+    value       30303030 | '0000'
+  2a26 (Firmware Revision String) (Firmware Revision Number)
+    properties  read
+    value       312e34 | '1.4'
+0a89139fba2b4003a72d18e332be098c
+  aaa0 (Device Model)
+    properties  read, write
+    value       526164426561636f6e20555342000000000000000000000000000000000000000000000000 | 'RadBeacon USB'
+  aaa1 (Device ID)
+    properties  read
+    value       303235354433 | '0255D3'
+  aaa2 (Device Name)
+    properties  read, write
+    value       526164426561636f6e20555342000000000000000000000000000000000000000000000000 | 'RadBeacon USB'
+  aaa3 (UUID)
+    properties  read, write
+    value       2f234454cf6d4a0fadf2f4911ba9ffa6 | '/#DTOmJ-rt&'
+  aaa4 (Major)
+    properties  read, write
+    value       0001 | ''
+  aaa5 (Minor)
+    properties  read, write
+    value       0001 | ''
+  aaa6 (Power)
+    properties  read, write
+    value       be | '>'
+  aaa7 (TX Power)
+    properties  read, write
+    value       0f | ''
+  aaa8 (Interval)
+    properties  read, write
+    value       a000 | ' '
+  aaa9 (Result)
+    properties  read, write
+    value       00000000 | ''
+  aaaa (New PIN)
+    properties  write
+  aaab (Action)
+    properties  write
+  aaac (PIN)
+    properties  write
+
+
+aaa2 onWriteRequest 526164426561636f6e20555342
+aaa3 onWriteRequest 2f234454cf6d4a0fadf2f4911ba9ffa6
+aaa4 onWriteRequest 0001
+aaa5 onWriteRequest 0001
+aaa6 onWriteRequest be
+aaa7 onWriteRequest 0f
+aaa8 onWriteRequest 6000
+aaaa onWriteRequest 00000001
+aaaa onWriteRequest 30303030
+aaa9 onReadRequest
+

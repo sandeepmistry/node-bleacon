@@ -7,7 +7,7 @@ var BlenoPrimaryService = bleno.PrimaryService;
 var BlenoCharacteristic = bleno.Characteristic;
 var BlenoDescriptor = bleno.Descriptor;
 
-console.log('pseudo - rad beacon');
+console.log('pseudo - radbeacon tag');
 
 bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
