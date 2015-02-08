@@ -1,7 +1,8 @@
 node-bleacon
 ============
 
-[![Analytics](https://ga-beacon.appspot.com/UA-56089547-1/sandeepmistry/node-bleacon?pixel)](https://github.com/igrigorik/ga-beacon)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sandeepmistry/node-bleacon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 A node.js library for creating, discovering, and configuring iBeacons
 
@@ -103,3 +104,5 @@ Example:
  * major: ```0000```
  * minor: ```0000```
  * meaured power at 1 meter: ```0xc5``` = ```-59```
+ 
+[![Analytics](https://ga-beacon.appspot.com/UA-56089547-1/sandeepmistry/node-bleacon?pixel)](https://github.com/igrigorik/ga-beacon)
