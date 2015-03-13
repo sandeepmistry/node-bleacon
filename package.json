@@ -22,7 +22,7 @@
     "noble": "~0.3.0",
     "debug": "~0.7.2",
     "bleno": "~0.1.0",
-    "bignum": "~0.6.2"
+    "bignum": "~0.9.2"
   },
   "devDependencies": {
     "jshint": "~2.1.11",
