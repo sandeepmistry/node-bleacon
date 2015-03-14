@@ -1,6 +1,6 @@
 {
   "name": "bleacon",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A node.js library for creating, discovering, and configuring iBeacons",
   "main": "index.js",
   "scripts": {
