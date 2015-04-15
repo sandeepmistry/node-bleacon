@@ -41,6 +41,8 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
 
     debug('onDiscover: ' + peripheral.uuid + ' ' + manufacturerData.toString('hex'));
 
+    // id can be looked up: https://cloud.estimote.com/v1/stickers/<id>/info
+    // response:            {"identifier":"<id>","type":"shoe","color":"blueberry","category":"shoe"}
     var id = manufacturerData.slice(3, 11).toString('hex');
 
     var temperatureBuffer = manufacturerData.slice(13, 15);
@@ -50,9 +52,12 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
     }
     var temperature = temperatureBuffer.readInt16LE(0) / 16.0;
 
+    var moving = (manufacturerData.readUInt8(15) & 0x40) !== 0;
+
     var sticker = {
       id: id,
-      temperature: temperature
+      temperature: temperature,
+      moving: moving
     };
 
     this.emit('discover', sticker);
