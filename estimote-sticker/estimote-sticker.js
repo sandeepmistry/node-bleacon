@@ -54,10 +54,22 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
 
     var moving = (manufacturerData.readUInt8(15) & 0x40) !== 0;
 
+    var acceleration = {
+      x: manufacturerData.readInt8(16) * 16 * 0.976,
+      y: manufacturerData.readInt8(17) * 16 * 0.976,
+      z: manufacturerData.readInt8(18) * 16 * 0.976
+    };
+
+    var currentMotionStateDuration = manufacturerData.readUInt8(19); // s?
+    var previousMotionStateDuration = manufacturerData.readUInt8(20); // s?
+
     var sticker = {
       id: id,
       temperature: temperature,
-      moving: moving
+      moving: moving,
+      acceleration: acceleration,
+      currentMotionStateDuration: currentMotionStateDuration,
+      previousMotionStateDuration: previousMotionStateDuration
     };
 
     this.emit('discover', sticker);
