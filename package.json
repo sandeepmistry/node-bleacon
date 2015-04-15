@@ -4,7 +4,7 @@
   "description": "A node.js library for creating, discovering, and configuring iBeacons",
   "main": "index.js",
   "scripts": {
-    "test": "jshint *.js lib/*.js bleu-station/*.js estimote/*.js radbeacon/*.js"
+    "test": "jshint *.js lib/*.js bleu-station/*.js estimote/*.js estimote-sticker/*.js radbeacon/*.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "dependencies": {
     "noble": "~0.3.0",
     "debug": "~0.7.2",
-    "bleno": "~0.1.0",
+    "bleno": "~0.1.12",
     "bignum": "~0.9.2"
   },
   "devDependencies": {
