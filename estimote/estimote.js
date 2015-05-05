@@ -50,7 +50,9 @@ var Estimote = function(peripheral) {
 util.inherits(Estimote, events.EventEmitter);
 
 Estimote.is = function(peripheral) {
-  return (peripheral.advertisement.localName === 'estimote' &&
+  var localName = peripheral.advertisement.localName;
+
+  return ( (localName === 'estimote' || localName === 'EST') && // original || "new" name
             peripheral.advertisement.manufacturerData !== undefined &&
             peripheral.advertisement.serviceData !== undefined &&
             peripheral.advertisement.serviceData.length &&
@@ -234,8 +236,13 @@ Estimote.prototype.pair = function(callback) {
       authService2Data[14] = this.addressData[2];
       authService2Data[15] = this.addressData[4];
 
+
       // encrypt
-      var key = new Buffer('ff8af207013625c2d810097f20d3050f', 'hex');
+      var fixedKeyHexString = (this._peripheral.advertisement.localName === 'EST') ?
+                                'c54fc29163e4457b8a9ac9868e1b3a9a' : // "new" fixed key (v3)
+                                'ff8af207013625c2d810097f20d3050f'   // original fixed key
+
+      var key = new Buffer(fixedKeyHexString, 'hex');
       var iv = new Buffer('00000000000000000000000000000000', 'hex');
 
       var cipher = crypto.createCipheriv('aes128', key, iv);
