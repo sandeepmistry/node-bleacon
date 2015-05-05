@@ -24,15 +24,6 @@ Estimote.discover(function(estimote) {
       estimote.pair(callback);
     },
     function(callback) {
-      console.log('readDeviceName');
-      estimote.readDeviceName(function(deviceName) {
-        console.log('\tdevice name = ' + deviceName);
-
-        console.log('writeDeviceName');
-        estimote.writeDeviceName(deviceName, callback);
-      });
-    },
-    function(callback) {
       console.log('readMajor');
       estimote.readMajor(function(major) {
         console.log('\tmajor = ' + major + ' (0x' + major.toString(16) + ')');
