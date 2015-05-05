@@ -50,7 +50,7 @@ var Estimote = function(peripheral) {
 util.inherits(Estimote, events.EventEmitter);
 
 Estimote.is = function(peripheral) {
-  return (peripheral.advertisement.localName === 'estimote' && 
+  return (peripheral.advertisement.localName === 'estimote' &&
             peripheral.advertisement.manufacturerData !== undefined &&
             peripheral.advertisement.serviceData !== undefined &&
             peripheral.advertisement.serviceData.length &&
@@ -266,7 +266,7 @@ Estimote.prototype.pair = function(callback) {
 
       // decrypt
       var decipher = crypto.createDecipheriv('aes128', key, iv);
-      
+
       decipher.setAutoPadding(false);
       authService2Data = decipher.update(authService2Data);
 
@@ -331,7 +331,7 @@ Estimote.prototype.readPowerLevel = function(callback) {
        '-8': 5,
        '-4': 6,
         '0': 7,
-        '4': 8 
+        '4': 8
     };
 
     var powerLevel = POWER_LEVEL_MAPPER['' + rawLevel];
