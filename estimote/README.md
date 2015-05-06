@@ -83,7 +83,15 @@ __Other__
     var powerLevel = 7; // 1 - 7
     estimote.writePowerLevel(powerLevel, callback);
 
-Events 
+__Sensors__
+
+    estimote.readTemperature(callback(temperature));
+
+    estimote.subscribeMotion(callback);
+    estimote.unsubscribeMotion(callback);
+    estimote.on('motionStateChange', callback(isMoving));
+
+Events
 ------
 
 __Disconnect__

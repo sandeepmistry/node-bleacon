@@ -10,6 +10,10 @@ Estimote.discover(function(estimote) {
         process.exit(0);
       });
 
+      estimote.on('motionStateChange', function(isMoving) {
+        console.log('\tmotion state change: isMoving = ' + isMoving);
+      });
+
       console.log('found: ' + estimote.toString());
 
       console.log('connect');
@@ -78,20 +82,23 @@ Estimote.discover(function(estimote) {
       });
     },
     function(callback) {
-      console.log('readService2_7');
-      estimote.readService2_7(function(data) {
-        console.log('\tservice 2 7 = ' + data.toString('hex'));
+      console.log('readTemperature');
+      estimote.readTemperature(function(temperature) {
+        console.log('\ttemperature = ' + temperature.toFixed(1));
 
         callback();
       });
     },
     function(callback) {
-      console.log('readService2_8');
-      estimote.readService2_8(function(data) {
-        console.log('\tservice 2 8 = ' + data.toString('hex'));
-
-        callback();
-      });
+      console.log('subscribeMotion');
+      estimote.subscribeMotion(callback);
+    },
+    function(callback) {
+      setTimeout(callback, 5000);
+    },
+    function(callback) {
+      console.log('unsubscribeMotion');
+      estimote.unsubscribeMotion(callback);
     },
     function(callback) {
       console.log('readService2_9');

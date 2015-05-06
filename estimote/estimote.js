@@ -15,14 +15,14 @@ var UUID_1_UUID                     = 'b9403003f5f8466eaff925556b57fe6d';
 var UUID_2_UUID                     = 'b9403004f5f8466eaff925556b57fe6d';
 var POWER_LEVEL_UUID                = 'b9403011f5f8466eaff925556b57fe6d';
 var ADVERTISEMENT_INTERVAL_UUID     = 'b9403012f5f8466eaff925556b57fe6d';
-var SERVICE_2_07_UUID               = 'b9403021f5f8466eaff925556b57fe6d';
-var SERVICE_2_08_UUID               = 'b9403031f5f8466eaff925556b57fe6d';
+var TEMPERATURE_UUID                = 'b9403021f5f8466eaff925556b57fe6d';
+var MOTION_UUID                     = 'b9403031f5f8466eaff925556b57fe6d';
 var SERVICE_2_09_UUID               = 'b9403032f5f8466eaff925556b57fe6d';
 var SERVICE_2_10_UUID               = 'b9403051f5f8466eaff925556b57fe6d';
 var BATTERY_LEVEL_UUID              = 'b9403041f5f8466eaff925556b57fe6d';
 
-var AUTH_SERVICE_1_UUID             = 'b9402001f5f8466eaff925556b57fe6d';
-var AUTH_SERVICE_2_UUID             = 'b9402002f5f8466eaff925556b57fe6d';
+var AUTH_SERVICE_1_UUID             = 'b9402001f5f8466eaff925556b57fe6d'; // auth seed
+var AUTH_SERVICE_2_UUID             = 'b9402002f5f8466eaff925556b57fe6d'; // auth vector
 
 var FIRMWARE_VERSION_UUID           = 'b9404001f5f8466eaff925556b57fe6d';
 var HARDWARE_VERSION_UUID           = 'b9404002f5f8466eaff925556b57fe6d';
@@ -45,6 +45,7 @@ var Estimote = function(peripheral) {
   this.minor = serviceData.readUInt16LE(9);
 
   this._peripheral.on('disconnect', this.onDisconnect.bind(this));
+  this._onMotionDataBinded = this.onMotionData.bind(this);
 };
 
 util.inherits(Estimote, events.EventEmitter);
@@ -153,6 +154,12 @@ Estimote.prototype.readUInt16Characteristic = function(uuid, callback) {
   });
 };
 
+Estimote.prototype.readInt16Characteristic = function(uuid, callback) {
+  this.readDataCharacteristic(uuid, function(data) {
+    callback(data.readInt16LE(0));
+  });
+};
+
 Estimote.prototype.readUInt32Characteristic = function(uuid, callback) {
   this.readDataCharacteristic(uuid, function(data) {
     callback(data.readUInt32LE(0));
@@ -240,7 +247,7 @@ Estimote.prototype.pair = function(callback) {
       // encrypt
       var fixedKeyHexString = (this._peripheral.advertisement.localName === 'EST') ?
                                 'c54fc29163e4457b8a9ac9868e1b3a9a' : // "new" fixed key (v3)
-                                'ff8af207013625c2d810097f20d3050f'   // original fixed key
+                                'ff8af207013625c2d810097f20d3050f';   // original fixed key
 
       var key = new Buffer(fixedKeyHexString, 'hex');
       var iv = new Buffer('00000000000000000000000000000000', 'hex');
@@ -392,12 +399,26 @@ Estimote.prototype.writeAdvertisementInterval = function(advertisementInterval, 
   this.writeUInt16Characteristic(ADVERTISEMENT_INTERVAL_UUID, rawAdvertisementInterval, callback);
 };
 
-Estimote.prototype.readService2_7 = function(callback) {
-  this.readDataCharacteristic(SERVICE_2_07_UUID, callback);
+Estimote.prototype.readTemperature = function(callback) {
+  this.writeUInt16Characteristic(TEMPERATURE_UUID, 0xffff, function() {
+    this.readInt16Characteristic(TEMPERATURE_UUID, function(temperature) {
+      callback(temperature / 256.0);
+    });
+  }.bind(this));
 };
 
-Estimote.prototype.readService2_8 = function(callback) {
-  this.readDataCharacteristic(SERVICE_2_08_UUID, callback);
+Estimote.prototype.subscribeMotion = function(callback) {
+  this._characteristics[MOTION_UUID].addListener('data', this._onMotionDataBinded);
+  this._characteristics[MOTION_UUID].notify(true, callback);
+};
+
+Estimote.prototype.unsubscribeMotion = function(callback) {
+  this._characteristics[MOTION_UUID].removeListener('data', this._onMotionDataBinded);
+  this._characteristics[MOTION_UUID].notify(false, callback);
+};
+
+Estimote.prototype.onMotionData = function(data) {
+  this.emit('motionStateChange', data.readUInt8(0) ? true : false);
 };
 
 Estimote.prototype.readService2_9 = function(callback) {
