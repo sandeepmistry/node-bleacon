@@ -1,6 +1,6 @@
 {
   "name": "bleacon",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A node.js library for creating, discovering, and configuring iBeacons",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "url": "https://github.com/sandeepmistry/node-bleacon/issues"
   },
   "dependencies": {
-    "noble": "~0.3.0",
+    "noble": "~1.0.0",
     "debug": "~0.7.2",
     "bleno": "~0.1.12",
     "bignum": "~0.9.2"
