@@ -20,6 +20,10 @@ var MOTION_UUID                     = 'b9403031f5f8466eaff925556b57fe6d';
 var SERVICE_2_09_UUID               = 'b9403032f5f8466eaff925556b57fe6d';
 var SERVICE_2_10_UUID               = 'b9403051f5f8466eaff925556b57fe6d';
 var BATTERY_LEVEL_UUID              = 'b9403041f5f8466eaff925556b57fe6d';
+var SERVICE_CONFIGURATION_UUID      = 'b9403051f5f8466eaff925556b57fe6d';
+var EDDYSTONE_UID_NAMESPACE_UUID    = 'b9403071f5f8466eaff925556b57fe6d';
+var EDDYSTONE_UID_INSTANCE_UUID     = 'b9403072f5f8466eaff925556b57fe6d';
+var EDDYSTONE_URL_UUID              = 'b9403073f5f8466eaff925556b57fe6d';
 
 var AUTH_SERVICE_1_UUID             = 'b9402001f5f8466eaff925556b57fe6d'; // auth seed
 var AUTH_SERVICE_2_UUID             = 'b9402002f5f8466eaff925556b57fe6d'; // auth vector
@@ -33,7 +37,7 @@ var Estimote = function(peripheral) {
   this._characteristics = {};
 
   this.uuid = peripheral.uuid;
-  this.manufacturerData = peripheral.advertisement.manufacturerData.toString('hex');
+  this.manufacturerData = (peripheral.advertisement.manufacturerData ? peripheral.advertisement.manufacturerData.toString('hex') : null);
 
   var serviceData = peripheral.advertisement.serviceData[0].data;
 
@@ -54,7 +58,6 @@ Estimote.is = function(peripheral) {
   var localName = peripheral.advertisement.localName;
 
   return ( (localName === 'estimote' || localName === 'EST') && // original || "new" name
-            peripheral.advertisement.manufacturerData !== undefined &&
             peripheral.advertisement.serviceData !== undefined &&
             peripheral.advertisement.serviceData.length &&
             peripheral.advertisement.serviceData[0].uuid === '180a');
@@ -431,6 +434,51 @@ Estimote.prototype.readService2_10 = function(callback) {
 
 Estimote.prototype.readBatteryLevel = function(callback) {
   this.readUInt8Characteristic(BATTERY_LEVEL_UUID, callback);
+};
+
+var SERVICE_CONFIGURATION_MAPPER = ['default', 'eddystone-uid', 'eddystone-url'];
+
+Estimote.prototype.readServiceConfiguration = function(callback) {
+  this.readDataCharacteristic(SERVICE_CONFIGURATION_UUID, function(value) {
+    callback(SERVICE_CONFIGURATION_MAPPER[value[3] & 0x03]);
+  }.bind(this));
+};
+
+Estimote.prototype.writeServiceConfiguration = function(serviceConfig, callback) {
+  this.readDataCharacteristic(SERVICE_CONFIGURATION_UUID, function(value) {
+    value[3] &= 0xfc;
+    value[3] |= SERVICE_CONFIGURATION_MAPPER.indexOf(serviceConfig);
+
+    this.writeDataCharacteristic(SERVICE_CONFIGURATION_UUID, value, callback);
+  }.bind(this));
+};
+
+Estimote.prototype.readEddystoneUidNamespace = function(callback) {
+  this.readDataCharacteristic(EDDYSTONE_UID_NAMESPACE_UUID, function(data) {
+    callback(data.toString('hex'));
+  });
+};
+
+Estimote.prototype.writeEddystoneUidNamespace = function(uidNamespace, callback) {
+  this.writeDataCharacteristic(EDDYSTONE_UID_NAMESPACE_UUID, new Buffer(uidNamespace, 'hex'), callback);
+};
+
+Estimote.prototype.readEddystoneUidInstance = function(callback) {
+  this.readDataCharacteristic(EDDYSTONE_UID_INSTANCE_UUID, function(data) {
+    callback(data.toString('hex'));
+  });
+};
+
+Estimote.prototype.writeEddystoneUidInstance = function(uidInstance, callback) {
+  this.writeDataCharacteristic(EDDYSTONE_UID_INSTANCE_UUID, new Buffer(uidInstance, 'hex'), callback);
+};
+
+Estimote.prototype.readEddystoneUrl = function(callback) {
+  this.readDataCharacteristic(EDDYSTONE_URL_UUID, callback);
+};
+
+Estimote.prototype.writeEddystoneUrl = function(url, callback) {
+  this.writeDataCharacteristic(EDDYSTONE_URL_UUID, url, callback);
 };
 
 Estimote.prototype.readAuthService1 = function(callback) {

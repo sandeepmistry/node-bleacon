@@ -125,6 +125,42 @@ Estimote.discover(function(estimote) {
       });
     },
     function(callback) {
+      console.log('readServiceConfiguration');
+      estimote.readServiceConfiguration(function(serviceConfiguration) {
+        console.log('\tservice configuration = ' + serviceConfiguration);
+
+        console.log('writeServiceConfiguration');
+        estimote.writeServiceConfiguration(serviceConfiguration, callback);
+      });
+    },
+    function(callback) {
+      console.log('readEddystoneUidNamespace');
+      estimote.readEddystoneUidNamespace(function(uidNamespace) {
+        console.log('\tUID namespace = ' + uidNamespace);
+
+        console.log('writeEddystoneUidNamespace');
+        estimote.writeEddystoneUidNamespace(uidNamespace, callback);
+      });
+    },
+    function(callback) {
+      console.log('readEddystoneUidInstance');
+      estimote.readEddystoneUidInstance(function(uidInstance) {
+        console.log('\tUID instance = ' + uidInstance);
+
+        console.log('writeEddystoneUidInstance');
+        estimote.writeEddystoneUidInstance(uidInstance, callback);
+      });
+    },
+    function(callback) {
+      console.log('readEddystoneUrl');
+      estimote.readEddystoneUrl(function(url) {
+        console.log('\tURL = ' + url.toString('hex'));
+
+        console.log('writeEddystoneUrl');
+        estimote.writeEddystoneUrl(url, callback);
+      });
+    },
+    function(callback) {
       console.log('readFirmwareVersion');
       estimote.readFirmwareVersion(function(firmwareVersion) {
         console.log('\tfirmware version = ' + firmwareVersion);
