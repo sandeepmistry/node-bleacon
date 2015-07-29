@@ -7,93 +7,112 @@ Configure [Estimote](http://estimote.com) iBeacons.
 Usage
 -----
 
-    var Estimote = require('bleacon').Estimote;
+```javascript
+var Estimote = require('bleacon').Estimote;
+```
 
 __Discover__
 
-    Estimote.discover(callback(estimote));
+```javascript
+Estimote.discover(callback(estimote));
 
-__Connect__
+Estimote.discoverAll(callback(estimote));
+```
 
-    estimote.connect(callback);
+__Connect an Setup__
+
+Run after discover.
+
+```javascript
+estimote.connectAndSetUp(callback(error));
+```
 
 __Disconnect__
 
-    estimote.disconnect(callback);
+```javascript
+estimote.disconnect(callback(error));
+```
 
-__Discover Services and Characteristics__
-
-Run after connect.
-
-    estimote.discoverServicesAndCharacteristics(callback);
 
 __Pair__
 
-Run after discover services and characteristics prior to write operations.
+Run after ```connectAndSetUp``` prior to write operations.
 
-    estimote.pair(callback);
+```javascript
+estimote.pair(callback(error));
+```
 
 __Device Info__
 
-    estimote.readDeviceName(callback(deviceName));
+```javascript
+estimote.readDeviceName(callback(error, deviceName));
 
-    var deviceName = 'estimote';
-    estimote.writeDeviceName(deviceName, callback);
+var deviceName = 'estimote';
+estimote.writeDeviceName(deviceName, callback(error));
 
-    estimote.readBatteryLevel(callback(batteryLevel));
+estimote.readBatteryLevel(callback(error, batteryLevel));
 
-    estimote.readFirmwareRevision(callback(firmwareRevision));
+estimote.readFirmwareRevision(callback(error, firmwareRevision));
 
-    estimote.readHardwareRevision(callback(hardwareRevision));
+estimote.readHardwareRevision(callback(error, hardwareRevision));
+```
 
 __iBeacon__
 
-    // UUID 1 & 2
-    var uuid = 'b9407f30f5f8466eaff925556b57fe6d';
+```javascript
+// UUID 1 & 2
+var uuid = 'b9407f30f5f8466eaff925556b57fe6d';
 
-    estimote.readUuid1(callback(uuid1));
-    estimote.readUuid2(callback(uuid2));
+estimote.readUuid1(callback(error, uuid1));
+estimote.readUuid2(callback(error, uuid2));
 
-    estimote.writeUuid1(uuid, callback);
-    estimote.writeUuid2(uuid, callback);
+estimote.writeUuid1(uuid, callback(error));
+estimote.writeUuid2(uuid, callback(error));
 
-    // Major
-    estimote.readMajor(callback(major));
+// Major
+estimote.readMajor(callback(error, major));
 
-    var major = 0x0001; // 0 - 65535
-    estimote.writeMajor(major, callback);
+var major = 0x0001; // 0 - 65535
+estimote.writeMajor(major, callback(error));
 
-    // Minor
-    estimote.readMinor(callback(minor));
+// Minor
+estimote.readMinor(callback(error, minor));
 
-    var minor = 0x0002; // 0 - 65535
-    estimote.writeMinor(minor, callback);
+var minor = 0x0002; // 0 - 65535
+estimote.writeMinor(minor, callback(error));
+```
 
 __Other__
 
-    // Advertisement Interval
-    estimote.readAdvertisementInterval(callback(advertisementInterval));
+```javascript
+// Advertisement Interval
+estimote.readAdvertisementInterval(callback(error, advertisementInterval));
 
-    var advertisementInterval = 200; // 50 - 2000 ms
-    estimote.writeAdvertisementInterval(advertisementInterval, callback);
+var advertisementInterval = 200; // 50 - 2000 ms
+estimote.writeAdvertisementInterval(advertisementInterval, callback(error));
 
-    // Power Level
-    estimote.readPowerLevel(callback(powerLevel, dBm));
+// Power Level
+estimote.readPowerLevel(callback(error, powerLevel, dBm));
 
-    var powerLevel = 7; // 1 - 7
-    estimote.writePowerLevel(powerLevel, callback);
+var powerLevel = 7; // 1 - 7
+estimote.writePowerLevel(powerLevel, callback(error));
+```
 
 __Sensors__
 
-    estimote.readTemperature(callback(temperature));
+```javascript
+estimote.readTemperature(callback(error, temperature));
 
-    estimote.subscribeMotion(callback);
-    estimote.unsubscribeMotion(callback);
-    estimote.on('motionStateChange', callback(isMoving));
+estimote.subscribeMotion(callback(error));
+estimote.unsubscribeMotion(callback(error));
+estimote.on('motionStateChange', callback(isMoving));
+```
 
 Events
 ------
 
 __Disconnect__
 
-    estimote.on('disconnect', callback);
+```javascript
+estimote.on('disconnect', callback);
+```

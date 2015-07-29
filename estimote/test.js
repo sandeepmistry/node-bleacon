@@ -16,12 +16,8 @@ Estimote.discover(function(estimote) {
 
       console.log('found: ' + estimote.toString());
 
-      console.log('connect');
-      estimote.connect(callback);
-    },
-    function(callback) {
-      console.log('discoverServicesAndCharacteristics');
-      estimote.discoverServicesAndCharacteristics(callback);
+      console.log('connectAndSetUp');
+      estimote.connectAndSetUp(callback);
     },
     function(callback) {
       console.log('pair');
@@ -29,7 +25,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readMajor');
-      estimote.readMajor(function(major) {
+      estimote.readMajor(function(error, major) {
         console.log('\tmajor = ' + major + ' (0x' + major.toString(16) + ')');
 
         console.log('writeMajor');
@@ -38,7 +34,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readMinor');
-      estimote.readMinor(function(minor) {
+      estimote.readMinor(function(error, minor) {
         console.log('\tminor = ' + minor + ' (0x' + minor.toString(16) + ')');
 
         console.log('writeMinor');
@@ -47,7 +43,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readUuid1');
-      estimote.readUuid1(function(uuid1) {
+      estimote.readUuid1(function(error, uuid1) {
         console.log('\tuuid 1 = ' + uuid1);
 
         console.log('writeUuid1');
@@ -56,7 +52,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readUuid2');
-      estimote.readUuid2(function(uuid2) {
+      estimote.readUuid2(function(error, uuid2) {
         console.log('\tuuid 2 = ' + uuid2);
 
         console.log('writeUuid2');
@@ -65,7 +61,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readPowerLevel');
-      estimote.readPowerLevel(function(powerLevel, dBm) {
+      estimote.readPowerLevel(function(error, powerLevel, dBm) {
         console.log('\tpower level ' + powerLevel + ', ' + dBm + ' dBm');
 
         console.log('writePowerLevel');
@@ -74,7 +70,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readAdvertisementInterval');
-      estimote.readAdvertisementInterval(function(advertisementInterval) {
+      estimote.readAdvertisementInterval(function(error, advertisementInterval) {
         console.log('\tadvertisement interval = ' + advertisementInterval + ' ms');
 
         console.log('writeAdvertisementInterval');
@@ -83,7 +79,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readTemperature');
-      estimote.readTemperature(function(temperature) {
+      estimote.readTemperature(function(error, temperature) {
         console.log('\ttemperature = ' + temperature.toFixed(1));
 
         callback();
@@ -102,7 +98,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readService2_9');
-      estimote.readService2_9(function(data) {
+      estimote.readService2_9(function(error, data) {
         console.log('\tservice 2 9 = ' + data.toString('hex'));
 
         callback();
@@ -110,7 +106,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readService2_10');
-      estimote.readService2_10(function(data) {
+      estimote.readService2_10(function(error, data) {
         console.log('\tservice 2 10 = ' + data.toString('hex'));
 
         callback();
@@ -118,7 +114,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readBatteryLevel');
-      estimote.readBatteryLevel(function(batteryLevel) {
+      estimote.readBatteryLevel(function(error, batteryLevel) {
         console.log('\tbattery level = ' + batteryLevel);
 
         callback();
@@ -126,7 +122,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readServiceConfiguration');
-      estimote.readServiceConfiguration(function(serviceConfiguration) {
+      estimote.readServiceConfiguration(function(error, serviceConfiguration) {
         console.log('\tservice configuration = ' + serviceConfiguration);
 
         console.log('writeServiceConfiguration');
@@ -135,7 +131,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readEddystoneUidNamespace');
-      estimote.readEddystoneUidNamespace(function(uidNamespace) {
+      estimote.readEddystoneUidNamespace(function(error, uidNamespace) {
         console.log('\tUID namespace = ' + uidNamespace);
 
         console.log('writeEddystoneUidNamespace');
@@ -144,7 +140,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readEddystoneUidInstance');
-      estimote.readEddystoneUidInstance(function(uidInstance) {
+      estimote.readEddystoneUidInstance(function(error, uidInstance) {
         console.log('\tUID instance = ' + uidInstance);
 
         console.log('writeEddystoneUidInstance');
@@ -153,7 +149,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readEddystoneUrl');
-      estimote.readEddystoneUrl(function(url) {
+      estimote.readEddystoneUrl(function(error, url) {
         console.log('\tURL = ' + url.toString('hex'));
 
         console.log('writeEddystoneUrl');
@@ -162,7 +158,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readFirmwareVersion');
-      estimote.readFirmwareVersion(function(firmwareVersion) {
+      estimote.readFirmwareVersion(function(error, firmwareVersion) {
         console.log('\tfirmware version = ' + firmwareVersion);
 
         callback();
@@ -170,7 +166,7 @@ Estimote.discover(function(estimote) {
     },
     function(callback) {
       console.log('readHardwareVersion');
-      estimote.readHardwareVersion(function(hardwareVersion) {
+      estimote.readHardwareVersion(function(error, hardwareVersion) {
         console.log('\thardware version = ' + hardwareVersion);
 
         callback();
