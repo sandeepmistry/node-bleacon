@@ -128,7 +128,7 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
       firmwareState: firmwareState
     };
 
-    this.emit('discover', sticker);
+    this.emit('discover', sticker, rssi);
   }
 };
 
