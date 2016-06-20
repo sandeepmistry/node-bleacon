@@ -50,10 +50,10 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
 
     // id can be looked up: https://cloud.estimote.com/v1/stickers/<id>/info
     // response:            {"identifier":"<id>","type":"shoe","color":"blueberry","category":"shoe"}
-    var id = manufacturerData.slice(3, 7).toString('hex');
+    var id = manufacturerData.slice(3, 11).toString('hex');
     var major = parseInt(manufacturerData.slice(7, 9).toString('hex'), 16);
     var minor = parseInt(manufacturerData.slice(9, 11).toString('hex'), 16);
-    var uuid = 'd0d3fa86ca7645ec9bd96af4' + id;
+    var uuid = 'd0d3fa86ca7645ec9bd96af4' + manufacturerData.slice(3, 7).toString('hex');
     var type = (manufacturerData[11] === 0x4) ? 'SB0' : 'unknown';
     var firmware = null;
 
