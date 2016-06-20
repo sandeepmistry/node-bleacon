@@ -129,7 +129,8 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
       currentMotionStateDuration: currentMotionStateDuration,
       previousMotionStateDuration: previousMotionStateDuration,
       power: power,
-      firmwareState: firmwareState
+      firmwareState: firmwareState,
+      rssi: rssi
     };
 
     this.emit('discover', sticker);
