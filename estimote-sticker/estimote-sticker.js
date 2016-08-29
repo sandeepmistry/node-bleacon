@@ -5,6 +5,14 @@ var debug = require('debug')('estimote-sticker');
 
 var noble = require('noble');
 
+debug("NOBLE_REPORT_ALL_HCI_EVENTS env variable has to be set to 1");
+
+if(process.env['NOBLE_REPORT_ALL_HCI_EVENTS'] === undefined) {
+  process.env['NOBLE_REPORT_ALL_HCI_EVENTS'] = 1;
+}
+
+
+
 var EstimoteSticker = function() {
   noble.on('discover', this.onDiscover.bind(this));
 };
