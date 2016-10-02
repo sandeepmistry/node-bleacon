@@ -3,6 +3,7 @@ bleacon - Estimote
 
 Configure [Estimote](http://estimote.com) iBeacons.
 
+**Warning** not compatible with firmware versions 3.2.0 or higher. See [Estimote Fixes Security Problems with Beacon Firmware](http://makezine.com/2015/08/28/estimote-fixes-security-problems-with-beacon-firmware/) for more info.
 
 Usage
 -----
