@@ -106,7 +106,7 @@ estimote.readTemperature(callback(error, temperature));
 
 estimote.subscribeMotion(callback(error));
 estimote.unsubscribeMotion(callback(error));
-estimote.on('motionStateChange', callback(isMoving));
+estimote.on('motionStateChange', callback(isMoving, uuid));
 ```
 
 Events

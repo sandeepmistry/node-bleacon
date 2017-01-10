@@ -310,7 +310,7 @@ Estimote.prototype.unsubscribeMotion = function(callback) {
 };
 
 Estimote.prototype.onMotionData = function(data) {
-  this.emit('motionStateChange', data.readUInt8(0) ? true : false);
+  this.emit('motionStateChange', data.readUInt8(0) ? true : false, this.uuid);
 };
 
 Estimote.prototype.readService2_9 = function(callback) {

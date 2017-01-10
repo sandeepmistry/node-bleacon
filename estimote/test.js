@@ -10,8 +10,8 @@ Estimote.discover(function(estimote) {
         process.exit(0);
       });
 
-      estimote.on('motionStateChange', function(isMoving) {
-        console.log('\tmotion state change: isMoving = ' + isMoving);
+      estimote.on('motionStateChange', function(isMoving, uuid) {
+        console.log('\tmotion state change for ' + uuid +': isMoving = ' + isMoving);
       });
 
       console.log('found: ' + estimote.toString());
