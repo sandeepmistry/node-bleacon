@@ -139,7 +139,7 @@ EstimoteSticker.prototype.onDiscover = function(peripheral) {
       rssi: rssi
     };
 
-    this.emit('discover', sticker);
+    this.emit('discover', sticker, rssi);
   }
 };
 
