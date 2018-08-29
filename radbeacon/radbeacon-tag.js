@@ -98,7 +98,7 @@ RadBeaconTag.prototype.discoverServicesAndCharacteristics = function(callback) {
 };
 
 RadBeaconTag.prototype.readValue = function(command, callback) {
-  this._characteristics[COMMAND_UUID].write(new Buffer([command]), false, function() {
+  this._characteristics[COMMAND_UUID].write(Buffer.from([command]), false, function() {
     this._characteristics[RESPONSE_UUID].read(function(error, data) {
       callback(data);
     }.bind(this));
@@ -164,7 +164,7 @@ RadBeaconTag.prototype.readBatteryLevel = function(callback) {
 };
 
 RadBeaconTag.prototype.login = function(pin, callback) {
-  var data = new Buffer(4);
+  var data = Buffer.alloc(4);
 
   pin += '';
 
@@ -180,15 +180,15 @@ RadBeaconTag.prototype.login = function(pin, callback) {
 };
 
 RadBeaconTag.prototype.writeName = function(name, callback) {
-  this.writeValue(0x07, new Buffer(name), callback);
+  this.writeValue(0x07, Buffer.from(name), callback);
 };
 
 RadBeaconTag.prototype.writeUuid = function(uuid, callback) {
-  this.writeValue(0x10, new Buffer(uuid, 'hex'), callback);
+  this.writeValue(0x10, Buffer.from(uuid, 'hex'), callback);
 };
 
 RadBeaconTag.prototype.writeMajor = function(major, callback) {
-  var data = new Buffer(2);
+  var data = Buffer.alloc(2);
 
   data.writeUInt16BE(major, 0);
 
@@ -196,7 +196,7 @@ RadBeaconTag.prototype.writeMajor = function(major, callback) {
 };
 
 RadBeaconTag.prototype.writeMinor = function(minor, callback) {
-  var data = new Buffer(2);
+  var data = Buffer.alloc(2);
 
   data.writeUInt16BE(minor, 0);
 
@@ -204,7 +204,7 @@ RadBeaconTag.prototype.writeMinor = function(minor, callback) {
 };
 
 RadBeaconTag.prototype.writeMeasuredTxPower = function(measureTxPower, callback) {
-  var data = new Buffer(1);
+  var data = Buffer.alloc(1);
 
   data.writeInt8(measureTxPower, 0);
 
@@ -212,7 +212,7 @@ RadBeaconTag.prototype.writeMeasuredTxPower = function(measureTxPower, callback)
 };
 
 RadBeaconTag.prototype.writeAdvertisementInterval = function(advertisementInterval, callback) {
-  var data = new Buffer(2);
+  var data = Buffer.alloc(2);
 
   data.writeUInt16BE(advertisementInterval, 0);
 
@@ -220,7 +220,7 @@ RadBeaconTag.prototype.writeAdvertisementInterval = function(advertisementInterv
 };
 
 RadBeaconTag.prototype.writeTxPower = function(txPower, callback) {
-  var data = new Buffer(1);
+  var data = Buffer.alloc(1);
 
   data.writeInt8(txPower, 0);
 
@@ -228,7 +228,7 @@ RadBeaconTag.prototype.writeTxPower = function(txPower, callback) {
 };
 
 RadBeaconTag.prototype.writePin = function(currentpin, newpin, callback) {
-  var data = new Buffer(4);
+  var data = Buffer.alloc(4);
 
   newpin += '';
 

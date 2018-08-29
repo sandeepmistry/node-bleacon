@@ -41,7 +41,7 @@ var Estimote = function(peripheral) {
   var serviceData = peripheral.advertisement.serviceData[0].data;
 
   this.address = serviceData.slice(0, 6).toString('hex').match(/.{1,2}/g).reverse().join(':');
-  this.addressData = new Buffer(this.address.split(':').join(''), 'hex');
+  this.addressData = Buffer.from(this.address.split(':').join(''), 'hex');
 
   this.measuredPower = serviceData.readInt8(6);
   this.major = serviceData.readUInt16LE(7);
@@ -96,7 +96,7 @@ Estimote.prototype.pair = function(callback) {
 
       sec = bignum(authService1Value).powm(exp, mod);
 
-      var authService2Data = new Buffer(16);
+      var authService2Data = Buffer.alloc(16);
 
       // fill in authService2Data with address
       authService2Data[0] = this.addressData[5];
@@ -122,8 +122,8 @@ Estimote.prototype.pair = function(callback) {
                                 'c54fc29163e4457b8a9ac9868e1b3a9a' : // "new" fixed key (v3)
                                 'ff8af207013625c2d810097f20d3050f';   // original fixed key
 
-      var key = new Buffer(fixedKeyHexString, 'hex');
-      var iv = new Buffer('00000000000000000000000000000000', 'hex');
+      var key = Buffer.from(fixedKeyHexString, 'hex');
+      var iv = Buffer.from('00000000000000000000000000000000', 'hex');
 
       var cipher = crypto.createCipheriv('aes128', key, iv);
 
@@ -131,7 +131,7 @@ Estimote.prototype.pair = function(callback) {
       authService2Data = cipher.update(authService2Data);
 
       // fill in key with sec
-      var secData = new Buffer(4);
+      var secData = Buffer.alloc(4);
       secData.writeUInt32BE(sec, 0);
 
       key[0] = secData[3];
@@ -196,7 +196,7 @@ Estimote.prototype.readUuid1 = function(callback) {
 };
 
 Estimote.prototype.writeUuid1 = function(uuid1, callback) {
-  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, UUID_1_UUID, new Buffer(uuid1, 'hex'), callback);
+  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, UUID_1_UUID, Buffer.from(uuid1, 'hex'), callback);
 };
 
 Estimote.prototype.readUuid2 = function(callback) {
@@ -210,7 +210,7 @@ Estimote.prototype.readUuid2 = function(callback) {
 };
 
 Estimote.prototype.writeUuid2 = function(uuid2, callback) {
-  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, UUID_2_UUID, new Buffer(uuid2, 'hex'), callback);
+  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, UUID_2_UUID, Buffer.from(uuid2, 'hex'), callback);
 };
 
 Estimote.prototype.readPowerLevel = function(callback) {
@@ -361,7 +361,7 @@ Estimote.prototype.readEddystoneUidNamespace = function(callback) {
 };
 
 Estimote.prototype.writeEddystoneUidNamespace = function(uidNamespace, callback) {
-  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, EDDYSTONE_UID_NAMESPACE_UUID, new Buffer(uidNamespace, 'hex'), callback);
+  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, EDDYSTONE_UID_NAMESPACE_UUID, Buffer.from(uidNamespace, 'hex'), callback);
 };
 
 Estimote.prototype.readEddystoneUidInstance = function(callback) {
@@ -375,7 +375,7 @@ Estimote.prototype.readEddystoneUidInstance = function(callback) {
 };
 
 Estimote.prototype.writeEddystoneUidInstance = function(uidInstance, callback) {
-  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, EDDYSTONE_UID_INSTANCE_UUID, new Buffer(uidInstance, 'hex'), callback);
+  this.writeDataCharacteristic(ESTIMOTE_SERVICE_UUID, EDDYSTONE_UID_INSTANCE_UUID, Buffer.from(uidInstance, 'hex'), callback);
 };
 
 Estimote.prototype.readEddystoneUrl = function(callback) {

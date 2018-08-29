@@ -69,23 +69,23 @@ bleno.on('advertisingStart', function(error) {
               var data;
 
               if (lastCommand === 'pin') {
-                data = new Buffer('01', 'hex'); // 01 - correct pin, 00 - incorrect pin
+                data = Buffer.from('01', 'hex'); // 01 - correct pin, 00 - incorrect pin
               } else if (lastCommand === 0x87) {
-                data = new Buffer('RadBeacon Tag');
+                data = Buffer.from('RadBeacon Tag');
               } else if (lastCommand === 0x90) {
-                data = new Buffer('e2c56db5dffb48d2b060d0f5a71096e0', 'hex');
+                data = Buffer.from('e2c56db5dffb48d2b060d0f5a71096e0', 'hex');
               } else if (lastCommand === 0x91) {
-                data = new Buffer('0001', 'hex');
+                data = Buffer.from('0001', 'hex');
               } else if (lastCommand === 0x92) {
-                data = new Buffer('0002', 'hex');
+                data = Buffer.from('0002', 'hex');
               } else if (lastCommand === 0x93) {
-                data = new Buffer('c5', 'hex');
+                data = Buffer.from('c5', 'hex');
               } else if (lastCommand === 0x84) {
-                data = new Buffer('04', 'hex');
+                data = Buffer.from('04', 'hex');
               } else if (lastCommand === 0x82) {
-                data = new Buffer('0064', 'hex');
+                data = Buffer.from('0064', 'hex');
               } else if (lastCommand === 0xa0) {
-                data = new Buffer('32', 'hex');
+                data = Buffer.from('32', 'hex');
               }
 
               callback(BlenoCharacteristic.RESULT_SUCCESS, data);
