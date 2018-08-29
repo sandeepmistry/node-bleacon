@@ -30,22 +30,22 @@ bleno.on('advertisingStart', function(error) {
           new BlenoCharacteristic({
             uuid: '2a29',
             properties: ['read'],
-            value: new Buffer('TwoCanoes')
+            value: Buffer.from('TwoCanoes')
           }),
           new BlenoCharacteristic({
             uuid: '2a24',
             properties: ['read'],
-            value: new Buffer('iBeacon Demo')
+            value: Buffer.from('iBeacon Demo')
           }),
           new BlenoCharacteristic({
             uuid: '2a27',
             properties: ['read'],
-            value: new Buffer('0.0.0')
+            value: Buffer.from('0.0.0')
           }),
           new BlenoCharacteristic({
             uuid: '2a26',
             properties: ['read'],
-            value: new Buffer('0.0.0')
+            value: Buffer.from('0.0.0')
           })
         ]
       }),
@@ -55,22 +55,22 @@ bleno.on('advertisingStart', function(error) {
           new BlenoCharacteristic({
               uuid: 'b0702881a295a8abf734031a98a512de',
               properties: ['read'],
-              value: new Buffer('e2c56db5dffb48d2b060d0f5a71096e0', 'hex')
+              value: Buffer.from('e2c56db5dffb48d2b060d0f5a71096e0', 'hex')
           }),
           new BlenoCharacteristic({
               uuid: 'b0702882a295a8abf734031a98a512de',
               properties: ['read'],
-              value: new Buffer('0001', 'hex')
+              value: Buffer.from('0001', 'hex')
           }),
           new BlenoCharacteristic({
               uuid: 'b0702883a295a8abf734031a98a512de',
               properties: ['read'],
-              value: new Buffer('0002', 'hex')
+              value: Buffer.from('0002', 'hex')
           }),
           new BlenoCharacteristic({
               uuid: 'b0702884a295a8abf734031a98a512de',
               properties: ['read'],
-              value: new Buffer('c4', 'hex')
+              value: Buffer.from('c4', 'hex')
           })
         ]
       }),
@@ -94,7 +94,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('c8f21a07078a42df86600946ffd109be onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('e2c56db5dffb48d2b060d0f5a71096e0', 'hex'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('e2c56db5dffb48d2b060d0f5a71096e0', 'hex'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('c8f21a07078a42df86600946ffd109be onWriteRequest ' + data.toString('hex'));
@@ -108,7 +108,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('677ec16a743d42fcafe1d9f4a02a726f onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('0001', 'hex'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('0001', 'hex'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('677ec16a743d42fcafe1d9f4a02a726f onWriteRequest ' + data.toString('hex'));
@@ -122,7 +122,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('7722712a07f4433f8e305a6dc26356ba onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('0002', 'hex'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('0002', 'hex'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('7722712a07f4433f8e305a6dc26356ba onWriteRequest ' + data.toString('hex'));
@@ -136,7 +136,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('8aa2414e8e614d9cae14508ee3192dee onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('0f', 'hex'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('0f', 'hex'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('8aa2414e8e614d9cae14508ee3192dee onWriteRequest ' + data.toString('hex'));
@@ -150,7 +150,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('0b4700c35c5346519601b7e1e06b1bbf onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('c4', 'hex'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('c4', 'hex'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('0b4700c35c5346519601b7e1e06b1bbf onWriteRequest ' + data.toString('hex'));
@@ -164,7 +164,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('980ac81e94fd43f48b9a260a65dd3adc onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('TC000000'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('TC000000'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('980ac81e94fd43f48b9a260a65dd3adc onWriteRequest ' + data.toString('hex'));
@@ -178,7 +178,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('12d8cca8b1cc4e48abf7767b5e0f3ff6 onReadRequest');
 
-              callback(BlenoCharacteristic.RESULT_SUCCESS, new Buffer('', 'hex'));
+              callback(BlenoCharacteristic.RESULT_SUCCESS, Buffer.from('', 'hex'));
             },
             onWriteRequest: function(data, offset, withoutResponse, callback) {
               console.log('12d8cca8b1cc4e48abf7767b5e0f3ff6 onWriteRequest ' + data.toString('hex'));
@@ -197,7 +197,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('fffc3dbb92d148f1aa5289a3d9517d79 onReadRequest');
 
-              var data = new Buffer(8);
+              var data = Buffer.alloc(8);
               data.writeDoubleLE(123.456789, 0);
 
               callback(BlenoCharacteristic.RESULT_SUCCESS, data);
@@ -214,7 +214,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('9e5f3adf337f4acfb54d929da486f512 onReadRequest');
 
-              var data = new Buffer(8);
+              var data = Buffer.alloc(8);
               data.writeDoubleLE(999.123456, 0);
 
               callback(BlenoCharacteristic.RESULT_SUCCESS, data);
@@ -231,7 +231,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('676e5ff15cd7484ab98f97f3c96e6361 onReadRequest');
 
-              var data = new Buffer([1]);
+              var data = Buffer.from([1]);
 
               callback(BlenoCharacteristic.RESULT_SUCCESS, data);
             },
@@ -252,7 +252,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('98a5a965efd34d16924718fd88bb8a30 onReadRequest');
 
-              var data = new Buffer('/https://twocanoes.com/bleu/config/default.plist');
+              var data = Buffer.from('/https://twocanoes.com/bleu/config/default.plist');
 
               callback(BlenoCharacteristic.RESULT_SUCCESS, data);
             },
@@ -268,7 +268,7 @@ bleno.on('advertisingStart', function(error) {
             onReadRequest: function(offset, callback) {
               console.log('3e8501d8aa3943368908b6e79d81a050 onReadRequest');
 
-              var data = new Buffer('');
+              var data = Buffer.from('');
 
               callback(BlenoCharacteristic.RESULT_SUCCESS, data);
             },

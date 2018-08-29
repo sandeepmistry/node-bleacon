@@ -164,8 +164,8 @@ BleuStation.prototype.writeDataCharacteristic = function(uuid, data, callback) {
 
 BleuStation.prototype.writeStringCharacteristic = function(uuid, value, callback) {
   var valueLength = value.length;
-  var data = new Buffer(valueLength + 1);
-  var valueData = new Buffer(value);
+  var data = Buffer.alloc(valueLength + 1);
+  var valueData = Buffer.alloc(value);
 
   data[0] = valueLength;
   for (var i = 0; i < valueLength; i++) {
@@ -176,7 +176,7 @@ BleuStation.prototype.writeStringCharacteristic = function(uuid, value, callback
 };
 
 BleuStation.prototype.writeUInt16Characteristic = function(uuid, value, callback) {
-  var data = new Buffer(2);
+  var data = Buffer.alloc(2);
 
   data.writeUInt16BE(value, 0);
 
@@ -184,7 +184,7 @@ BleuStation.prototype.writeUInt16Characteristic = function(uuid, value, callback
 };
 
 BleuStation.prototype.writeInt8Characteristic = function(uuid, value, callback) {
-  var data = new Buffer(1);
+  var data = Buffer.alloc(1);
 
   data.writeInt8(value, 0);
 
@@ -192,7 +192,7 @@ BleuStation.prototype.writeInt8Characteristic = function(uuid, value, callback) 
 };
 
 BleuStation.prototype.writeUInt8Characteristic = function(uuid, value, callback) {
-  var data = new Buffer(1);
+  var data = Buffer.alloc(1);
 
   data.writeUInt8(value, 0);
 
@@ -200,7 +200,7 @@ BleuStation.prototype.writeUInt8Characteristic = function(uuid, value, callback)
 };
 
 BleuStation.prototype.writeDoubleCharacteristic = function(uuid, value, callback) {
-  var data = new Buffer(8);
+  var data = Buffer.alloc(8);
 
   data.writeDoubleLE(value, 0);
 
@@ -220,7 +220,7 @@ BleuStation.prototype.login = function(password, callback) {
       }
     }
 
-    clientCharacteristicConfigurationDescriptor.writeValue(new Buffer('0000', 'hex'), function(error) {
+    clientCharacteristicConfigurationDescriptor.writeValue(Buffer.from('0000', 'hex'), function(error) {
       this.writeAdminPassword(password, function(result) {
         callback(result === 0);
       }.bind(this));
@@ -279,7 +279,7 @@ BleuStation.prototype.readAdminDeviceName = function(callback) {
 };
 
 BleuStation.prototype.writeUuid = function(uuid, callback) {
-  this.writeDataCharacteristic(ADMIN_IBEACON_UUID_UUID, new Buffer(uuid, 'hex'), callback);
+  this.writeDataCharacteristic(ADMIN_IBEACON_UUID_UUID, Buffer.from(uuid, 'hex'), callback);
 };
 
 BleuStation.prototype.writeMajor = function(major, callback) {
